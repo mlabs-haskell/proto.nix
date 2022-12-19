@@ -1,2 +1,4 @@
 # nix-protobuffers
-Nix utilities for making derivations out of Google Protocol Buffers compiler output
+
+Nix utilities for making Nix derivations out of Google Protocol Buffers compiler
+output.
