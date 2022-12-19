@@ -21,6 +21,13 @@
         inherit system;
       };
 
+      pkgsWithHaskellNix = import nixpkgs {
+        inherit system;
+        inherit (haskell-nix) config;
+        overlays = [ haskell-nix.overlay ];
+      };
+      hnix = pkgsWithHaskellNix.haskell-nix;
+
       # pre-commit-hooks.nix
       fourmolu = pkgs.haskell.packages.ghc924.fourmolu;
 
@@ -40,6 +47,30 @@
         inherit pkgs;
         inherit (pre-commit-check) shellHook;
       };
+
+      # Haskell AddressBook
+      addressBookHsPb = import ./src/protobuf-hs.nix {
+        inherit pkgs;
+        src = ./test-proto;
+        proto = "addressbook.proto";
+        cabalBuildDepends = [ ];
+        cabalPackageName = "addressbook-pb";
+      };
+
+      addressBookHsProj = hnix.cabalProject' {
+        src = addressBookHsPb;
+        compiler-nix-name = "ghc924";
+        modules = [
+          (_: {
+            packages.proto-lens-protobuf-types.components.library.build-tools = [
+              pkgs.protobuf
+              pkgs.haskellPackages.proto-lens-protoc
+            ];
+          }
+          )
+        ];
+      };
+      addressBookHsFlake = addressBookHsProj.flake { };
 
       # Utilities
       # INFO: Will need this; renameAttrs = rnFn: pkgs.lib.attrsets.mapAttrs' (n: value: { name = rnFn n; inherit value; });
@@ -61,8 +92,7 @@
       };
 
       # nix flake check --impure --keep-going --allow-import-from-derivation
-      checks = { inherit pre-commit-check; } // devShells // packages;
-
+      checks = { inherit pre-commit-check; } // devShells // packages // addressBookHsFlake.packages;
     }
   );
 }
