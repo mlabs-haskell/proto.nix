@@ -1,5 +1,6 @@
-{ src, pkgs, proto, cabalPackageName, cabalPackageVersion ? "0.1.0.0", cabalBuildDepends ? [ ] }:
+{ src, pkgs, proto, cabalPackageName, cabalPackageVersion ? "0.1.0.0", cabalBuildDepends ? [ ], useGoogleProtosFromHackage ? false }:
 let
+  depPackageNames = builtins.map (dep: dep.name) cabalBuildDepends;
   cabalTemplate = pkgs.writeTextFile {
     name = "protobuf-hs-cabal-template";
     text = ''
@@ -19,13 +20,12 @@ let
           build-depends:
               base,
               proto-lens-runtime,
-              proto-lens-protobuf-types,
-              ${builtins.concatStringsSep "," cabalBuildDepends}
+              ${if useGoogleProtosFromHackage then "proto-lens-protobuf-types," else ""}${builtins.concatStringsSep "," depPackageNames}
     '';
   };
 in
 pkgs.stdenv.mkDerivation {
-  inherit src;
+  src = builtins.filterSource (path: _: pkgs.lib.strings.hasSuffix ".proto" path) src;
   name = cabalPackageName;
   buildInputs = [
     pkgs.protobuf
