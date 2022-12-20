@@ -34,7 +34,7 @@
         # pre-commit-hooks.nix
         fourmolu = pkgs.haskell.packages.ghc924.fourmolu;
 
-        pre-commit-check = pre-commit-hooks.lib.${system}.run (import ./pre-commit-hooks.nix {
+        pre-commit-check = pre-commit-hooks.lib.${system}.run (import ./pre-commit-check.nix {
           inherit pkgs fourmolu;
         });
 
@@ -56,7 +56,6 @@
           inherit pkgs;
           src = "${protobuf}/src";
           proto = "google/protobuf/any.proto";
-          cabalBuildDepends = [ ];
           cabalPackageName = "any-pb";
         };
 
@@ -72,7 +71,6 @@
           inherit pkgs;
           src = "${protobuf}/src";
           proto = "google/protobuf/descriptor.proto";
-          cabalBuildDepends = [ ];
           cabalPackageName = "descriptor-pb";
         };
 
@@ -80,7 +78,6 @@
           inherit pkgs;
           src = "${protobuf}/src";
           proto = "google/protobuf/duration.proto";
-          cabalBuildDepends = [ ];
           cabalPackageName = "duration-pb";
         };
 
@@ -88,7 +85,6 @@
           inherit pkgs;
           src = "${protobuf}/src";
           proto = "google/protobuf/empty.proto";
-          cabalBuildDepends = [ ];
           cabalPackageName = "empty-pb";
         };
 
@@ -96,7 +92,6 @@
           inherit pkgs;
           src = "${protobuf}/src";
           proto = "google/protobuf/wrappers.proto";
-          cabalBuildDepends = [ ];
           cabalPackageName = "wrappers-pb";
         };
 
@@ -104,7 +99,6 @@
           inherit pkgs;
           src = "${protobuf}/src";
           proto = "google/protobuf/struct.proto";
-          cabalBuildDepends = [ ];
           cabalPackageName = "struct-pb";
         };
 
@@ -112,7 +106,6 @@
           inherit pkgs;
           src = "${protobuf}/src";
           proto = "google/protobuf/timestamp.proto";
-          cabalBuildDepends = [ ];
           cabalPackageName = "timestamp-pb";
         };
 
@@ -140,7 +133,7 @@
           mlabs-tooling.lib.mkHackageMod
           ({
             src = addressBookHsPb;
-            compiler-nix-name = "ghc924";
+            compiler-nix-name = "ghc924"; # TODO(bladyjoker): Test with other GHC versions
             extraHackage = googlePbExtraHackage;
           })
         ];
@@ -151,13 +144,13 @@
       in
       rec {
         # Useful for nix repl
-        inherit pkgs googlePbExtraHackage;
+        inherit pkgs;
 
         # Instruction for the Hercules CI to build on x86_64-linux only, to avoid errors about systems without agents.
         herculesCI.ciSystems = [ "x86_64-linux" ];
 
         # Standard flake attributes
-        packages = { };
+        packages = { inherit googlePbExtraHackage; };
 
         devShells = rec {
           dev-pre-commit = preCommitDevShell;
