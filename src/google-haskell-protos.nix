@@ -1,7 +1,7 @@
 # Haskell https://github.com/google/proto-lens/blob/master/proto-lens-protobuf-types/proto-lens-protobuf-types.cabal
 { pkgs, protobuf }:
 let
-  haskellProto = import ./haskell-proto.nix { };
+  haskellProto = import ./haskell-proto.nix;
 
   anyHsPb = haskellProto {
     inherit pkgs;
@@ -73,9 +73,9 @@ let
   ];
 
   # Indexed by name for convenience
-  googleHsPbs = with builtins; listToAttrs (map (value: { inherit (drv) name; inherit value; }) googleHsPbs');
+  googleHsPbs = with builtins; listToAttrs (map (value: { inherit (value) name; inherit value; }) googleHsPbs');
 
   # Formatted for haskell-nix
-  googleHsPbsExtraHackage = with builtins; map toString googleHsPbs;
+  googleHsPbsExtraHackage = with builtins; map toString googleHsPbs';
 in
 { inherit googleHsPbs googleHsPbsExtraHackage; }
