@@ -77,14 +77,34 @@ typos....................................................................Passed
 
 to run all the code quality tooling specified in the [pre-commit-check.nix config file](./pre-commit-check.nix)
 
-## haskellProto
+## Library reference
+
+With the following Flake...
 
 ```nix
-addressBookHsPb = nix-protobufs.haskellProto {
+{
+  description = "My AddressBook application";
+
+  inputs = {
+    haskell-nix.url = "github:input-output-hk/haskell.nix";
+    nixpkgs.follows = "haskell-nix/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    nix-protobufs.url = "github:mlabs-haskell/nix-protobufs";
+    mlabs-tooling.url = "github:mlabs-haskell/mlabs-tooling.nix/bladyjoker/expose-modules";
+  };
+```
+
+### haskellProto
+
+```nix
+inherit (inputs.nix-protobufs) haskellProto googleHsPbs googleHsPbsExtraHackage
+
+addressBookHsPb = haskellProto {
   inherit pkgs;
-  src = "${nix-protobufs}/test-proto";
+  src = "${inputs.nix-protobufs}/test-proto";
   proto = "addressbook.proto";
-  cabalBuildDepends = [ timestampHsPb ];
+  cabalBuildDepends = [ googleHsPbs.timestamp-pb ];
   cabalPackageName = "addressbook-pb";
 };
 
@@ -97,5 +117,4 @@ addressBookAppHsProj = hnix.cabalProject' [
   })
 ];
 addressBookAppHsFlake = addressBookAppHsProj.flake { };
-
 ```
