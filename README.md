@@ -1,4 +1,4 @@
-# nix-protobufs
+# protobufs.nix
 
 Nix utilities for generating language-specific bindings from [Google Protocol
 Buffers](https://developers.google.com/protocol-buffers) `.proto` files.
@@ -90,19 +90,19 @@ With the following Flake...
     nixpkgs.follows = "haskell-nix/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-    nix-protobufs.url = "github:mlabs-haskell/nix-protobufs";
-    mlabs-tooling.url = "github:mlabs-haskell/mlabs-tooling.nix/bladyjoker/expose-modules";
+    protobufs-nix.url = "github:mlabs-haskell/protobufs.nix";
+    mlabs-tooling.url = "github:mlabs-haskell/mlabs-tooling.nix";
   };
 ```
 
 ### haskellProto
 
 ```nix
-inherit (inputs.nix-protobufs) haskellProto googleHsPbs googleHsPbsExtraHackage
+inherit (inputs.protobufs-nix) haskellProto googleHsPbs googleHsPbsExtraHackage
 
 addressBookHsPb = haskellProto {
   inherit pkgs;
-  src = "${inputs.nix-protobufs}/test-proto";
+  src = "${inputs.protobufs-nix}/test-proto";
   proto = "addressbook.proto";
   cabalBuildDepends = [ googleHsPbs.timestamp-pb ];
   cabalPackageName = "addressbook-pb";
@@ -113,7 +113,7 @@ addressBookAppHsProj = hnix.cabalProject' [
   ({
     src = ./.;
     compiler-nix-name = "ghc924";
-    extraHackage = nix-protobufs.googlePbExtraHackage;
+    extraHackage = protobufs-nix.googlePbExtraHackage;
   })
 ];
 addressBookAppHsFlake = addressBookAppHsProj.flake { };

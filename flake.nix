@@ -1,5 +1,5 @@
 {
-  description = "nix-protobuffers";
+  description = "protobufs.nix";
 
   inputs = {
     haskell-nix.url = "github:input-output-hk/haskell.nix";
