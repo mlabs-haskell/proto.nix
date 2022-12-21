@@ -75,4 +75,27 @@ shellcheck...........................................(no files to check)Skipped
 typos....................................................................Passed
 ```
 
-To run all the code quality tooling specified in the [pre-commit-check.nix config file](./pre-commit-check.nix)
+to run all the code quality tooling specified in the [pre-commit-check.nix config file](./pre-commit-check.nix)
+
+## haskellProto
+
+```nix
+addressBookHsPb = nix-protobufs.haskellProto {
+  inherit pkgs;
+  src = "${nix-protobufs}/test-proto";
+  proto = "addressbook.proto";
+  cabalBuildDepends = [ timestampHsPb ];
+  cabalPackageName = "addressbook-pb";
+};
+
+addressBookAppHsProj = hnix.cabalProject' [
+  mlabs-tooling.lib.mkHackageMod
+  ({
+    src = ./.;
+    compiler-nix-name = "ghc924";
+    extraHackage = nix-protobufs.googlePbExtraHackage;
+  })
+];
+addressBookAppHsFlake = addressBookAppHsProj.flake { };
+
+```
