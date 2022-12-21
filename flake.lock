@@ -1754,16 +1754,15 @@
         "plutus": "plutus"
       },
       "locked": {
-        "lastModified": 1671468068,
+        "lastModified": 1671582351,
         "narHash": "sha256-SrNXbfheBuXTW8brxg//fHSbV249UlpWTQAg+3UPAHk=",
         "owner": "mlabs-haskell",
         "repo": "mlabs-tooling.nix",
-        "rev": "ceeb12754d781a2a4873ce37e1311b9ec82806ba",
+        "rev": "2376c911c6f8b6dcf46f479afddd671b3d37de78",
         "type": "github"
       },
       "original": {
         "owner": "mlabs-haskell",
-        "ref": "bladyjoker/expose-modules",
         "repo": "mlabs-tooling.nix",
         "type": "github"
       }
