@@ -12,7 +12,7 @@
       url = "github:bladyjoker/http2-grpc-haskell";
       flake = false;
     };
-    mlabs-tooling.url = "github:mlabs-haskell/mlabs-tooling.nix/bladyjoker/expose-modules";
+    mlabs-tooling.url = "github:mlabs-haskell/mlabs-tooling.nix";
   };
 
   outputs = { self, nixpkgs, haskell-nix, flake-utils, pre-commit-hooks, protobuf, mlabs-tooling, ... }:
