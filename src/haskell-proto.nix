@@ -1,5 +1,6 @@
-{ src, pkgs, proto, cabalPackageName, cabalPackageVersion ? "0.1.0.0", cabalBuildDepends ? [ ] }:
+{ src, pkgs, proto, cabalPackageName, cabalPackageVersion ? "0.1.0.0", cabalBuildDepends ? [ ], useGoogleProtosFromHackage ? false }:
 let
+  depPackageNames = builtins.map (dep: dep.name) cabalBuildDepends;
   cabalTemplate = pkgs.writeTextFile {
     name = "protobuf-hs-cabal-template";
     text = ''
@@ -19,13 +20,12 @@ let
           build-depends:
               base,
               proto-lens-runtime,
-              proto-lens-protobuf-types,
-              ${builtins.concatStringsSep "," cabalBuildDepends}
+              ${if useGoogleProtosFromHackage then "proto-lens-protobuf-types," else ""}${builtins.concatStringsSep "," depPackageNames}
     '';
   };
 in
 pkgs.stdenv.mkDerivation {
-  inherit src;
+  src = builtins.filterSource (path: _: pkgs.lib.strings.hasSuffix ".proto" path) src;
   name = cabalPackageName;
   buildInputs = [
     pkgs.protobuf
@@ -37,7 +37,7 @@ pkgs.stdenv.mkDerivation {
     mkdir src
     protoc --plugin=protoc-gen-haskell=${pkgs.haskellPackages.proto-lens-protoc}/bin/proto-lens-protoc \
            --proto_path=${src} \
-           --haskell_out=src ${proto}
+           --haskell_out=src ${src}/${proto}
 
     EXPOSED_MODULES=$(find src -name "*.hs" | while read f; do grep -Eo 'module\s+\S+\s+' $f | sed -r 's/module\s+//' | sed -r 's/\s+//'; done | tr '\n' ' ')
     echo "Found generated modules $EXPOSED_MODULES"
