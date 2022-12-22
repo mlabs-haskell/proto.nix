@@ -39,7 +39,7 @@ pkgs.stdenv.mkDerivation {
            --proto_path=${src} \
            --haskell_out=src ${src}/${proto}
 
-    EXPOSED_MODULES=$(find src -name "*.hs" | while read f; do grep -Eo 'module\s+\S+\s+' $f | sed -r 's/module\s+//' | sed -r 's/\s+//'; done | tr '\n' ' ')
+    EXPOSED_MODULES=$(find src -name "*.hs" | while read f; do grep -Eo 'module\s+\S+\s+' $f | head -n 1 | sed -r 's/module\s+//' | sed -r 's/\s+//'; done | tr '\n' ' ')
     echo "Found generated modules $EXPOSED_MODULES"
     cat ${cabalTemplate} | sed -r "s/EXPOSED_MODULES/$EXPOSED_MODULES/" > ${cabalPackageName}.cabal
   '';
