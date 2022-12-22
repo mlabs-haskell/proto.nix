@@ -35,8 +35,10 @@
           # pre-commit-hooks.nix
           fourmolu = pkgs.haskell.packages.ghc924.fourmolu;
 
+          protoHooks = preCommitHooks { inherit pkgs; };
+
           pre-commit-check = pre-commit-hooks.lib.${system}.run (import ./pre-commit-check.nix {
-            inherit pkgs fourmolu;
+            inherit fourmolu protoHooks;
           });
 
           # preCommitTools = pre-commit-hooks.outputs.packages.${system};
@@ -52,10 +54,13 @@
             inherit (pre-commit-check) shellHook;
           };
 
-          # Haskell proto
+          # Actual library
           haskellProto = import ./src/haskell-proto.nix;
 
-          # Google Haskell protos
+          devShell = import ./src/dev-shell.nix;
+
+          preCommitHooks = import ./src/pre-commit-hooks.nix;
+
           googleHsProtos = import ./src/google-haskell-protos.nix { inherit pkgs protobuf; };
 
           # Haskell AddressBook
@@ -85,7 +90,10 @@
           inherit pkgs;
 
           # Library
-          lib = { inherit haskellProto; inherit (googleHsProtos) googleHsPbs googleHsPbsExtraHackage; };
+          lib = {
+            inherit haskellProto preCommitHooks devShell;
+            inherit (googleHsProtos) googleHsPbs googleHsPbsExtraHackage;
+          };
 
           # Standard flake attributes
           packages = { };

@@ -1,4 +1,4 @@
-{ pkgs, fourmolu }: {
+{ fourmolu, protoHooks }: {
   src = ./.;
   settings = { };
 
@@ -11,8 +11,7 @@
     hlint.enable = true;
     typos.enable = true;
     markdownlint.enable = true;
-    inherit (import ./src/hooks.nix { inherit pkgs; }) protolint txtpbfmt;
-  };
+  } // protoHooks;
 
   tools = { inherit fourmolu; };
 }
