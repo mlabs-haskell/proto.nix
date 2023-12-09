@@ -1,4 +1,4 @@
-{ src, pkgs, proto, cabalPackageName, cabalPackageVersion ? "0.1.0.0", cabalBuildDepends ? [ ], useGoogleProtosFromHackage ? false }:
+pkgs: proto-lens-protoc: { src, proto, cabalPackageName, cabalPackageVersion ? "0.1.0.0", cabalBuildDepends ? [ ], useGoogleProtosFromHackage ? false }:
 let
   depPackageNames = builtins.map (dep: dep.name) cabalBuildDepends;
   cabalTemplate = pkgs.writeTextFile {
@@ -29,13 +29,11 @@ pkgs.stdenv.mkDerivation {
   name = cabalPackageName;
   buildInputs = [
     pkgs.protobuf
-    pkgs.haskellPackages.proto-lens-protoc
-    pkgs.cabal-install
   ];
   buildPhase = ''
     set -vox
     mkdir src
-    protoc --plugin=protoc-gen-haskell=${pkgs.haskellPackages.proto-lens-protoc}/bin/proto-lens-protoc \
+    protoc --plugin=protoc-gen-haskell=${proto-lens-protoc}/bin/proto-lens-protoc \
            --proto_path=${src} \
            --haskell_out=src ${src}/${proto}
 
