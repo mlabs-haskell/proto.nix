@@ -5,7 +5,7 @@ _:
       packages = {
         address-book-hs-pb = proto-nix.haskellProto {
           src = ./.;
-          proto = "addressbook.proto";
+          protos = [ "addressbook.proto" ];
           cabalBuildDepends = [ config.packages.timestamp-hs-pb ];
           cabalPackageName = "addressbook-pb";
         };

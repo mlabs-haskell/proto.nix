@@ -13,7 +13,7 @@ Quick example showing how to build a Haskell Cabal and Markdown documentation pa
 let
   example-hs-pb = proto-nix.haskellProto {
     src = ./.;
-    proto = "example.proto";
+    protos = ["example.proto"];
     cabalPackageName = "addressbook-pb";
   }
 

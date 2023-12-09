@@ -7,51 +7,57 @@
 
         any-hs-pb = proto-nix.haskellProto {
           src = "${inputs.protobuf}/src";
-          proto = "google/protobuf/any.proto";
+          protos = [ "google/protobuf/any.proto" ];
           cabalPackageName = "any-pb";
         };
 
         compiler-plugin-hs-pb = proto-nix.haskellProto {
           src = "${inputs.protobuf}/src";
-          proto = "google/protobuf/compiler/plugin.proto";
+          protos = [ "google/protobuf/compiler/plugin.proto" ];
           cabalBuildDepends = [ config.packages.descriptor-hs-pb ];
           cabalPackageName = "compiler-plugin-pb";
         };
 
         descriptor-hs-pb = proto-nix.haskellProto {
           src = "${inputs.protobuf}/src";
-          proto = "google/protobuf/descriptor.proto";
+          protos = [ "google/protobuf/descriptor.proto" ];
           cabalPackageName = "descriptor-pb";
         };
 
         duration-hs-pb = proto-nix.haskellProto {
           src = "${inputs.protobuf}/src";
-          proto = "google/protobuf/duration.proto";
+          protos = [ "google/protobuf/duration.proto" ];
           cabalPackageName = "duration-pb";
         };
 
         empty-hs-pb = proto-nix.haskellProto {
           src = "${inputs.protobuf}/src";
-          proto = "google/protobuf/empty.proto";
+          protos = [ "google/protobuf/empty.proto" ];
           cabalPackageName = "empty-pb";
         };
 
         wrappers-hs-pb = proto-nix.haskellProto {
           src = "${inputs.protobuf}/src";
-          proto = "google/protobuf/wrappers.proto";
+          protos = [ "google/protobuf/wrappers.proto" ];
           cabalPackageName = "wrappers-pb";
         };
 
         struct-hs-pb = proto-nix.haskellProto {
           src = "${inputs.protobuf}/src";
-          proto = "google/protobuf/struct.proto";
+          protos = [ "google/protobuf/struct.proto" ];
           cabalPackageName = "struct-pb";
         };
 
         timestamp-hs-pb = proto-nix.haskellProto {
           src = "${inputs.protobuf}/src";
-          proto = "google/protobuf/timestamp.proto";
+          protos = [ "google/protobuf/timestamp.proto" ];
           cabalPackageName = "timestamp-pb";
+        };
+
+        google-hs-pb = proto-nix.haskellProto {
+          src = "${inputs.protobuf}/src";
+          protos = [ "google/protobuf/any.proto" "google/protobuf/compiler/plugin.proto" "google/protobuf/descriptor.proto" "google/protobuf/duration.proto" "google/protobuf/empty.proto" "google/protobuf/wrappers.proto" "google/protobuf/struct.proto" "google/protobuf/timestamp.proto" ];
+          cabalPackageName = "google-pb";
         };
 
         google-pb-docs = proto-nix.docProto {
