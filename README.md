@@ -38,7 +38,7 @@ $ nix repl
 nix-repl> :lf .
 nix-repl> lib.x86_64-linux.
 lib.x86_64-linux.haskellProto
-lib.x86_64-linux.preCommitFlakeModule
+lib.x86_64-linux.docProto
 ```
 
 ### google-pb
