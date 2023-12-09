@@ -17,5 +17,10 @@
     };
   };
 
+  hercules-ci.github-pages.branch = "main";
+  perSystem = { config, ... }: {
+    hercules-ci.github-pages.settings.contents = config.packages.proto-nix-book;
+  };
+
   herculesCI.ciSystems = [ "x86_64-linux" ];
 }

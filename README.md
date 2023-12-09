@@ -7,7 +7,7 @@ The intended goal is to enable
 [Bazel-like](https://blog.bazel.build/2017/02/27/protocol-buffers.html) Google
 Protobuf workflows with Nix.
 
-Quick example showing how to build a Haskell Cabal package from a .proto schema:
+Quick example showing how to build a Haskell Cabal and Markdown documentation package from a .proto schema:
 
 ```nix
 let
@@ -15,6 +15,11 @@ let
     src = ./.;
     proto = "example.proto";
     cabalPackageName = "addressbook-pb";
+  }
+
+  example-api-docs = proto-nix.docProto {
+    src = ./.;
+    protos = ["example.proto"];
   }
 ```
 
@@ -73,6 +78,17 @@ result/src
 result/src/Proto
 result/src/Proto/Addressbook_Fields.hs
 result/src/Proto/Addressbook.hs
+```
+
+### docs
+
+Directory containing proto.nix (also auto generated) documentation.
+
+```shell
+# Builds the proto-nix book
+$ nix build .#proto-nix-book
+# Opens the generated documentation with Chrome
+$ chromium result/index.html
 ```
 
 ## Getting started

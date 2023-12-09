@@ -54,6 +54,11 @@
           cabalPackageName = "timestamp-pb";
         };
 
+        google-pb-docs = proto-nix.docProto {
+          src = "${inputs.protobuf}/src";
+          protos = [ "google/protobuf/any.proto" "google/protobuf/compiler/plugin.proto" "google/protobuf/descriptor.proto" "google/protobuf/duration.proto" "google/protobuf/empty.proto" "google/protobuf/wrappers.proto" "google/protobuf/struct.proto" "google/protobuf/timestamp.proto" ];
+        };
+
       };
 
     };

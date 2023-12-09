@@ -32,6 +32,7 @@
         ./src/dev-shell.nix
         ./google-pb/build.nix
         ./tests/api/build.nix
+        ./docs/build.nix
       ];
       debug = true;
       systems = [ "x86_64-linux" ]; # "x86_64-darwin"

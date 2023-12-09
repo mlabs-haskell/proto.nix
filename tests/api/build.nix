@@ -9,6 +9,12 @@ _:
           cabalBuildDepends = [ config.packages.timestamp-hs-pb ];
           cabalPackageName = "addressbook-pb";
         };
+
+        address-book-docs = proto-nix.docProto {
+          src = ./.;
+          protos = [ "addressbook.proto" ];
+        };
+
       };
 
     };
