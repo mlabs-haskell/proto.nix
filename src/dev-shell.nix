@@ -1,12 +1,17 @@
-{ pkgs, shellHook }:
-pkgs.mkShell {
-  name = "protobufs-nix-proto-env";
-  buildInputs = [
-    pkgs.protobuf
-    pkgs.protolint
-    pkgs.txtpbfmt
-    pkgs.haskellPackages.proto-lens-protoc
-  ];
+_:
+{
+  perSystem = { pkgs, config, ... }:
+    {
 
-  inherit shellHook;
+      devShells.dev-proto-nix = pkgs.mkShell {
+        name = "dev-proto-nix";
+        buildInputs = [
+          pkgs.protobuf
+          pkgs.protolint
+          pkgs.txtpbfmt
+          config.settings.proto-lens-protoc
+        ];
+
+      };
+    };
 }

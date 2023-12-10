@@ -1,4 +1,4 @@
-# protobufs.nix
+# proto.nix
 
 Nix utilities for generating language-specific bindings from [Google Protocol
 Buffers](https://developers.google.com/protocol-buffers) `.proto` files.
@@ -6,6 +6,90 @@ Buffers](https://developers.google.com/protocol-buffers) `.proto` files.
 The intended goal is to enable
 [Bazel-like](https://blog.bazel.build/2017/02/27/protocol-buffers.html) Google
 Protobuf workflows with Nix.
+
+Quick example showing how to build a Haskell Cabal and Markdown documentation package from a .proto schema:
+
+```nix
+let
+  example-hs-pb = proto-nix.haskellProto {
+    src = ./.;
+    protos = ["example.proto"];
+    cabalPackageName = "addressbook-pb";
+  }
+
+  example-api-docs = proto-nix.docProto {
+    src = ./.;
+    protos = ["example.proto"];
+  }
+```
+
+## Overview
+
+### src
+
+Directory containing the implementation of PB Nix utilities (functions and flake-parts modules).
+
+See the [build.nix](./src/build.nix) for available build outputs.
+
+```shell
+# Open the Nix REPL to inspect the Flake outputs
+$ nix repl
+# Inspects the `lib` functions
+nix-repl> :lf .
+nix-repl> lib.x86_64-linux.
+lib.x86_64-linux.haskellProto
+lib.x86_64-linux.docProto
+```
+
+### google-pb
+
+Directory containing the `protoc` generated libraries for [standard Google .proto schemas](https://github.com/protocolbuffers/protobuf/tree/main/src).
+
+See the [build.nix](./google-pb/build.nix) for available build outputs.
+
+```shell
+# Builds the Google's descriptor.proto Haskell library
+$ nix build .#descriptor-hs-pb
+# Inspects the result
+$ find result/
+result/
+result/descriptor-pb.cabal
+result/src
+result/src/Proto
+result/src/Proto/Google
+result/src/Proto/Google/Protobuf
+result/src/Proto/Google/Protobuf/Descriptor.hs
+result/src/Proto/Google/Protobuf/Descriptor_Fields.hs
+```
+
+### tests
+
+Directory containing some tests and demonstration on how to use proto-nix.
+
+```shell
+# Builds the AddressBook canonical API Haskell library
+$ nix build .#address-book-hs-pb
+# Inspects the result
+$ find result/
+result/
+result/addressbook-pb.cabal
+result/addressbook.proto
+result/src
+result/src/Proto
+result/src/Proto/Addressbook_Fields.hs
+result/src/Proto/Addressbook.hs
+```
+
+### docs
+
+Directory containing proto.nix (also auto generated) documentation.
+
+```shell
+# Builds the proto-nix book
+$ nix build .#proto-nix-book
+# Opens the generated documentation with Chrome
+$ chromium result/index.html
+```
 
 ## Getting started
 
@@ -75,46 +159,4 @@ shellcheck...........................................(no files to check)Skipped
 typos....................................................................Passed
 ```
 
-to run all the code quality tooling specified in the [pre-commit-check.nix config file](./pre-commit-check.nix)
-
-## Library reference
-
-With the following Flake...
-
-```nix
-{
-  description = "My AddressBook application";
-
-  inputs = {
-    haskell-nix.url = "github:input-output-hk/haskell.nix";
-    nixpkgs.follows = "haskell-nix/nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-    protobufs-nix.url = "github:mlabs-haskell/protobufs.nix";
-    mlabs-tooling.url = "github:mlabs-haskell/mlabs-tooling.nix";
-  };
-```
-
-### haskellProto
-
-```nix
-inherit (inputs.protobufs-nix) haskellProto googleHsPbs googleHsPbsExtraHackage
-
-addressBookHsPb = haskellProto {
-  inherit pkgs;
-  src = "${inputs.protobufs-nix}/test-proto";
-  proto = "addressbook.proto";
-  cabalBuildDepends = [ googleHsPbs.timestamp-pb ];
-  cabalPackageName = "addressbook-pb";
-};
-
-addressBookAppHsProj = hnix.cabalProject' [
-  mlabs-tooling.lib.mkHackageMod
-  ({
-    src = ./.;
-    compiler-nix-name = "ghc924";
-    extraHackage = protobufs-nix.googlePbExtraHackage;
-  })
-];
-addressBookAppHsFlake = addressBookAppHsProj.flake { };
-```
+to run all the code quality tooling specified in the [Pre Commit hooks config file](./pre-commit.nix)
