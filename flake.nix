@@ -2,9 +2,9 @@
   description = "proto.nix";
 
   inputs = {
-    haskell-nix.url = "github:input-output-hk/haskell.nix";
+    nixpkgs.url = "github:NixOS/nixpkgs";
 
-    nixpkgs.follows = "haskell-nix/nixpkgs-unstable";
+    haskell-nix.url = "github:input-output-hk/haskell.nix";
 
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
 
