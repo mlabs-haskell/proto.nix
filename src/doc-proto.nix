@@ -9,5 +9,4 @@ pkgs.stdenv.mkDerivation {
     mkdir $out;
     protoc --plugin=${pkgs.protoc-gen-doc}/bin/protoc-gen-doc ${builtins.concatStringsSep " " protos} --doc_out=$out --doc_opt=${docType},api.md;
   '';
-  installPhase = "";
 }
