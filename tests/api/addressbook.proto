@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package tutorial;
 
+import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
 message Person {
@@ -29,4 +30,8 @@ message Person {
 // Our address book file is just one of these.
 message AddressBook {
   repeated Person people = 1;
+}
+
+service AddressBookService {
+  rpc GetAddressBook(google.protobuf.Empty) returns (tutorial.AddressBook) {}
 }
