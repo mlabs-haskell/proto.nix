@@ -10,11 +10,16 @@ _:
           cabalPackageName = "addressbook-pb";
         };
 
+        address-book-rust-pb = proto-nix.rustProto {
+          src = ./.;
+          protos = [ "addressbook.proto" ];
+          rustCrateName = "addressbook-pb";
+        };
+
         address-book-docs = proto-nix.docProto {
           src = ./.;
           protos = [ "addressbook.proto" ];
         };
-
       };
 
     };

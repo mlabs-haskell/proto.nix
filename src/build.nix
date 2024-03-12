@@ -35,6 +35,7 @@
             # NOTE(bladyjoker): If you need to add a function the export externally and use internally via config.proto-nix, add it here.
             haskellProto = import ./haskell-proto.nix pkgs config.settings.proto-lens-protoc;
             docProto = import ./doc-proto.nix pkgs;
+            rustProto = import ./rust-proto.nix pkgs;
           };
 
           # Makes it available in the per system `proto-nix` argument.
