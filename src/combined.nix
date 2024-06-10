@@ -41,16 +41,27 @@ let
             };
       };
 
-  docPkg = {
+  otherPkgs = {
     "${packageName}-doc" =
       docProto
         {
           inherit src protos docType;
         };
+
+    "${packageName}-src" =
+      pkgs.lib.cleanSourceWith {
+        name = "${packageName}-${packageVersion}";
+        inherit src; filter = pkgs.lib.cleanSourceFilter;
+      };
   };
 
   # Extra sources
-  extra-sources = pkgs.linkFarm "extra-sources" (builtins.map (drv: { name = drv.name; path = drv; }) extraSources);
+  extra-sources = pkgs.linkFarm "extra-sources" (builtins.map
+    (drv: {
+      name = drv.name;
+      path = drv;
+    })
+    extraSources);
 
   hasExtraSources = builtins.length extraSources > 0;
   linkExtraSources = pkgs.lib.optionalString hasExtraSources ''
@@ -72,5 +83,5 @@ in
     shellHook = linkExtraSources;
   };
 
-  packages = rustPkg // haskellPkg // docPkg;
+  packages = rustPkg // haskellPkg // otherPkgs;
 }
