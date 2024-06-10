@@ -35,7 +35,7 @@ let
         "${packageName}-haskell" =
           haskellProto
             {
-              inherit src protos extraSources extraSourcesDir packageName cabalBuildDepends useGoogleProtosFromHackage;
+              inherit src protos extraSources extraSourcesDir cabalBuildDepends useGoogleProtosFromHackage;
               cabalPackageName = packageName;
               cabalPackageVersion = "1.${packageName}";
             };
