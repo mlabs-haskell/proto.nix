@@ -1,5 +1,7 @@
 pkgs: { src
       , protos ? [ ]
+      , extraSources ? [ ]
+      , extraSourcesDir ? ".extras"
       , rustCrateName
       , rustCrateVersion ? "0.1.0"
       }:
@@ -33,6 +35,17 @@ let inherit (pkgs)
   cleanSrc = sourceFilesBySuffices src [ ".proto" ];
 
   protoFiles = concatStringsSep " " protos;
+
+  # Extra sources
+  extra-sources = pkgs.linkFarm "extra-sources" (builtins.map (drv: { name = drv.name; path = drv; }) extraSources);
+
+  hasExtraSources = builtins.length extraSources > 0;
+  linkExtraSources = pkgs.lib.optionalString hasExtraSources ''
+    echo "Linking extra sources"
+    if [ -e ./${extraSourcesDir} ]; then rm ./${extraSourcesDir}; fi
+    ln -s ${extra-sources} ./${extraSourcesDir}
+  '';
+
 in
 stdenv.mkDerivation {
   src = cleanSrc;
@@ -48,6 +61,7 @@ stdenv.mkDerivation {
 
   buildPhase = ''
     set -vox
+    ${linkExtraSources}
     mkdir -p gen/src
     protoc --prost_out=gen/src \
             --tonic_out=gen/src \
@@ -60,4 +74,5 @@ stdenv.mkDerivation {
   installPhase = ''
     cp -r gen $out
   '';
+
 }
