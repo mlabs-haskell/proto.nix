@@ -23,8 +23,8 @@ let
           rustProto
             {
               inherit src protos extraSources extraSourcesDir;
-              crateName = packageName;
-              cabalPackageVersion = packageVersion;
+              rustCrateName = packageName;
+              rustCrateVersion = packageVersion;
             };
       };
 
