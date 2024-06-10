@@ -2,7 +2,7 @@ pkgs: proto-lens-protoc: { src
                          , packageName
                          , packageVersion ? "1.0.0"
                          , protos ? [ ]
-                         , generatedLibs ? [ ]
+                         , langs ? [ ]
                          , extraSources ? [ ]
                          , extraSourcesDir ? ".extras"
                          , cabalBuildDepends ? [ ]
@@ -17,7 +17,7 @@ let
 
   rustPkg =
     pkgs.lib.optionalAttrs
-      (builtins.elem "rust" generatedLibs)
+      (builtins.elem "rust" langs)
       {
         "${packageName}-rust" =
           rustProto
@@ -30,7 +30,7 @@ let
 
   haskellPkg =
     pkgs.lib.optionalAttrs
-      (builtins.elem "haskell" generatedLibs)
+      (builtins.elem "haskell" langs)
       {
         "${packageName}-haskell" =
           haskellProto
