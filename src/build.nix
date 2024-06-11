@@ -36,6 +36,7 @@
             haskellProto = import ./haskell-proto.nix pkgs config.settings.proto-lens-protoc;
             docProto = import ./doc-proto.nix pkgs;
             rustProto = import ./rust-proto.nix pkgs;
+            combinedProto = import ./combined.nix pkgs config.settings.proto-lens-protoc;
           };
 
           # Makes it available in the per system `proto-nix` argument.

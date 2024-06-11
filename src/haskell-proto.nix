@@ -1,4 +1,12 @@
-pkgs: proto-lens-protoc: { src, protos, cabalPackageName, cabalPackageVersion ? "0.1.0.0", cabalBuildDepends ? [ ], useGoogleProtosFromHackage ? false }:
+pkgs: proto-lens-protoc: { src
+                         , protos ? [ ]
+                         , extraSources ? [ ]
+                         , extraSourcesDir ? ".extras"
+                         , cabalPackageName
+                         , cabalPackageVersion ? "0.1.0.0"
+                         , cabalBuildDepends ? [ ]
+                         , useGoogleProtosFromHackage ? false
+                         }:
 let
   depPackageNames = builtins.map (dep: dep.name) cabalBuildDepends;
   cabalTemplate = pkgs.writeTextFile {
@@ -23,6 +31,16 @@ let
               ${if useGoogleProtosFromHackage then "proto-lens-protobuf-types," else ""}${builtins.concatStringsSep "," depPackageNames}
     '';
   };
+
+  # Extra sources
+  extra-sources = pkgs.linkFarm "extra-sources" (builtins.map (drv: { name = drv.name; path = drv; }) extraSources);
+
+  hasExtraSources = builtins.length extraSources > 0;
+  linkExtraSources = pkgs.lib.optionalString hasExtraSources ''
+    echo "Linking extra sources"
+    if [ -e ./${extraSourcesDir} ]; then rm ./${extraSourcesDir}; fi
+    ln -s ${extra-sources} ./${extraSourcesDir}
+  '';
 in
 pkgs.stdenv.mkDerivation {
   src = builtins.filterSource (path: _: pkgs.lib.strings.hasSuffix ".proto" path) src;
@@ -32,6 +50,7 @@ pkgs.stdenv.mkDerivation {
   ];
   buildPhase = ''
     set -vox
+    ${linkExtraSources}
     mkdir src
     protoc --plugin=protoc-gen-haskell=${proto-lens-protoc}/bin/proto-lens-protoc \
            --proto_path=${src} \
