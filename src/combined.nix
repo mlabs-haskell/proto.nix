@@ -45,7 +45,7 @@ let
     "${packageName}-doc" =
       docProto
         {
-          inherit src protos docType;
+          inherit src protos extraSources extraSourcesDir docType;
         };
 
     "${packageName}-src" =
