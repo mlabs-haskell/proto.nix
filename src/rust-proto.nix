@@ -1,7 +1,6 @@
 pkgs: { src
       , protos ? [ ]
       , extraSources ? [ ]
-      , extraSourcesDir ? ".extras"
       , rustCrateName
       , rustCrateVersion ? "0.1.0"
       }:
@@ -11,8 +10,7 @@ let inherit (pkgs)
   protoc-gen-tonic
   protoc-gen-prost
   protoc-gen-prost-crate
-  writeText
-  protobuf;
+  writeText;
 
   inherit (pkgs) lib;
 
@@ -36,16 +34,10 @@ let inherit (pkgs)
 
   protoFiles = concatStringsSep " " protos;
 
-  # Extra sources
-  extra-sources = pkgs.linkFarm "extra-sources" (builtins.map (drv: { name = drv.name; path = drv; }) extraSources);
-
-  hasExtraSources = builtins.length extraSources > 0;
-  linkExtraSources = pkgs.lib.optionalString hasExtraSources ''
-    echo "Linking extra sources"
-    if [ -e ./${extraSourcesDir} ]; then rm ./${extraSourcesDir}; fi
-    ln -s ${extra-sources} ./${extraSourcesDir}
-  '';
-
+  ourProtobuf = pkgs.callPackage ./protobuf-with-extra-sources.nix {
+    packageName = rustCrateName;
+    inherit extraSources;
+  };
 in
 stdenv.mkDerivation {
   src = cleanSrc;
@@ -53,7 +45,7 @@ stdenv.mkDerivation {
   version = rustCrateVersion;
 
   buildInputs = [
-    protobuf
+    ourProtobuf
     protoc-gen-prost
     protoc-gen-tonic
     protoc-gen-prost-crate
@@ -61,7 +53,6 @@ stdenv.mkDerivation {
 
   buildPhase = ''
     set -vox
-    ${linkExtraSources}
     mkdir -p gen/src
     protoc --prost_out=gen/src \
             --tonic_out=gen/src \

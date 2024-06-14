@@ -1,7 +1,6 @@
 pkgs: proto-lens-protoc: { src
                          , protos ? [ ]
                          , extraSources ? [ ]
-                         , extraSourcesDir ? ".extras"
                          , cabalPackageName
                          , cabalPackageVersion ? "0.1.0.0"
                          , cabalBuildDepends ? [ ]
@@ -32,25 +31,19 @@ let
     '';
   };
 
-  # Extra sources
-  extra-sources = pkgs.linkFarm "extra-sources" (builtins.map (drv: { name = drv.name; path = drv; }) extraSources);
-
-  hasExtraSources = builtins.length extraSources > 0;
-  linkExtraSources = pkgs.lib.optionalString hasExtraSources ''
-    echo "Linking extra sources"
-    if [ -e ./${extraSourcesDir} ]; then rm ./${extraSourcesDir}; fi
-    ln -s ${extra-sources} ./${extraSourcesDir}
-  '';
+  ourProtobuf = pkgs.callPackage ./protobuf-with-extra-sources.nix {
+    packageName = cabalPackageName;
+    inherit extraSources;
+  };
 in
 pkgs.stdenv.mkDerivation {
   src = builtins.filterSource (path: _: pkgs.lib.strings.hasSuffix ".proto" path) src;
   name = cabalPackageName;
   buildInputs = [
-    pkgs.protobuf
+    ourProtobuf
   ];
   buildPhase = ''
     set -vox
-    ${linkExtraSources}
     mkdir src
     protoc --plugin=protoc-gen-haskell=${proto-lens-protoc}/bin/proto-lens-protoc \
            --proto_path=${src} \
