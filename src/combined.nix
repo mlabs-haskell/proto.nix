@@ -54,7 +54,7 @@ let
       };
   };
 
-  ourProtobuf = pkgs.callPackage ./protobuf-with-extra-sources.nix {
+  protobufWithExtraSources = pkgs.callPackage ./protobuf-with-extra-sources.nix {
     inherit packageName extraSources;
   };
 in
@@ -62,7 +62,7 @@ in
   devShells."dev-${packageName}" = pkgs.mkShell {
     name = "dev-${packageName}";
     buildInputs = [
-      ourProtobuf
+      protobufWithExtraSources
       pkgs.protolint
       pkgs.txtpbfmt
       proto-lens-protoc

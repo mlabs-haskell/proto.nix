@@ -34,7 +34,7 @@ let inherit (pkgs)
 
   protoFiles = concatStringsSep " " protos;
 
-  ourProtobuf = pkgs.callPackage ./protobuf-with-extra-sources.nix {
+  protobufWithExtraSources = pkgs.callPackage ./protobuf-with-extra-sources.nix {
     packageName = rustCrateName;
     inherit extraSources;
   };
@@ -45,7 +45,7 @@ stdenv.mkDerivation {
   version = rustCrateVersion;
 
   buildInputs = [
-    ourProtobuf
+    protobufWithExtraSources
     protoc-gen-prost
     protoc-gen-tonic
     protoc-gen-prost-crate

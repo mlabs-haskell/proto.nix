@@ -31,7 +31,7 @@ let
     '';
   };
 
-  ourProtobuf = pkgs.callPackage ./protobuf-with-extra-sources.nix {
+  protobufWithExtraSources = pkgs.callPackage ./protobuf-with-extra-sources.nix {
     packageName = cabalPackageName;
     inherit extraSources;
   };
@@ -40,7 +40,7 @@ pkgs.stdenv.mkDerivation {
   src = builtins.filterSource (path: _: pkgs.lib.strings.hasSuffix ".proto" path) src;
   name = cabalPackageName;
   buildInputs = [
-    ourProtobuf
+    protobufWithExtraSources
   ];
   buildPhase = ''
     set -vox

@@ -6,14 +6,13 @@
 , packageName ? "unspecified"
 }:
 let inherit (lib) getExe concatMapStringsSep;
-  ourProtocScriptName = "${packageName}-protoc";
 
-  ourProtoc = writeShellScript ourProtocScriptName ''
+  protocWithExtraSources = writeShellScript "${packageName}-protoc" ''
     ${getExe protobuf} ${concatMapStringsSep " " (s: "-I '${s}'") extraSources} $@
   '';
 in
 (linkFarm "${packageName}-protobuf" {
-  "bin/protoc" = ourProtoc;
+  "bin/protoc" = protocWithExtraSources;
   "include" = "${protobuf}/include";
   "lib" = "${protobuf}/lib";
   "nix-support" = "${protobuf}/nix-support";
