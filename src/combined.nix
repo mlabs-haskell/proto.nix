@@ -4,7 +4,6 @@ pkgs: proto-lens-protoc: { src
                          , protos ? [ ]
                          , langs ? [ ]
                          , extraSources ? [ ]
-                         , extraSourcesDir ? ".extras"
                          , cabalBuildDepends ? [ ]
                          , useGoogleProtosFromHackage ? false
                          , docType ? "markdown"
@@ -22,7 +21,7 @@ let
         "${packageName}-rust" =
           rustProto
             {
-              inherit src protos extraSources extraSourcesDir;
+              inherit src protos extraSources;
               rustCrateName = packageName;
               rustCrateVersion = packageVersion;
             };
@@ -35,7 +34,7 @@ let
         "${packageName}-haskell" =
           haskellProto
             {
-              inherit src protos extraSources extraSourcesDir cabalBuildDepends useGoogleProtosFromHackage;
+              inherit src protos extraSources cabalBuildDepends useGoogleProtosFromHackage;
               cabalPackageName = packageName;
               cabalPackageVersion = "1.${packageName}";
             };
@@ -45,7 +44,7 @@ let
     "${packageName}-doc" =
       docProto
         {
-          inherit src protos extraSources extraSourcesDir docType;
+          inherit src protos extraSources docType;
         };
 
     "${packageName}-src" =
@@ -55,32 +54,19 @@ let
       };
   };
 
-  # Extra sources
-  extra-sources = pkgs.linkFarm "extra-sources" (builtins.map
-    (drv: {
-      name = drv.name;
-      path = drv;
-    })
-    extraSources);
-
-  hasExtraSources = builtins.length extraSources > 0;
-  linkExtraSources = pkgs.lib.optionalString hasExtraSources ''
-    echo "Linking extra sources"
-    if [ -e ./${extraSourcesDir} ]; then rm ./${extraSourcesDir}; fi
-    ln -s ${extra-sources} ./${extraSourcesDir}
-  '';
-
+  protobufWithExtraSources = pkgs.callPackage ./protobuf-with-extra-sources.nix {
+    inherit packageName extraSources;
+  };
 in
 {
   devShells."dev-${packageName}" = pkgs.mkShell {
     name = "dev-${packageName}";
     buildInputs = [
-      pkgs.protobuf
+      protobufWithExtraSources
       pkgs.protolint
       pkgs.txtpbfmt
       proto-lens-protoc
     ];
-    shellHook = linkExtraSources;
   };
 
   packages = rustPkg // haskellPkg // otherPkgs;
