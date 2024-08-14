@@ -1,7 +1,15 @@
 _:
 {
   perSystem = { config, proto-nix, ... }:
-    {
+    let
+      combined =
+        proto-nix.combinedProto {
+          src = ./.;
+          packageName = "addressbook-combined";
+          protos = [ "addressbook.proto" ];
+          langs = [ "haskell" "rust" ];
+        };
+
       packages = {
         address-book-hs-pb = proto-nix.haskellProto {
           src = ./.;
@@ -21,6 +29,9 @@ _:
           protos = [ "addressbook.proto" ];
         };
       };
-
+    in
+    {
+      inherit (combined) devShells;
+      packages = combined.packages // packages;
     };
 }
