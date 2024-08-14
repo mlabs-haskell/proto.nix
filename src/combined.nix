@@ -36,7 +36,7 @@ let
             {
               inherit src protos extraSources cabalBuildDepends useGoogleProtosFromHackage;
               cabalPackageName = packageName;
-              cabalPackageVersion = "1.${packageName}";
+              cabalPackageVersion = "1.${packageVersion}";
             };
       };
 
