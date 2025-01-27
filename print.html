@@ -344,6 +344,9 @@
 <p><a href="google-api.html#google-protobuf-FieldOptions-EditionDefault">FieldOptions.EditionDefault</a></p>
 </li>
 <li>
+<p><a href="google-api.html#google-protobuf-FieldOptions-FeatureSupport">FieldOptions.FeatureSupport</a></p>
+</li>
+<li>
 <p><a href="google-api.html#google-protobuf-FileDescriptorProto">FileDescriptorProto</a></p>
 </li>
 <li>
@@ -554,8 +557,8 @@ if any.Is(Foo.DESCRIPTOR):
 <p>The pack methods provided by protobuf library will by default use
 'type.googleapis.com/full.type.name' as the type URL and the unpack
 methods only use the fully qualified type name after the last '/'
-in the type URL, for example &quot;foo.bar.com/x/y.z&quot; will yield type
-name &quot;y.z&quot;.</p>
+in the type URL, for example "foo.bar.com/x/y.z" will yield type
+name "y.z".</p>
 <h1 id="json"><a class="header" href="#json">JSON</a></h1>
 <p>The JSON representation of an <code>Any</code> value uses the regular
 representation of the deserialized, embedded message, with an
@@ -582,7 +585,7 @@ field. Example (for message [google.protobuf.Duration][]):</p>
 }
 </code></pre>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Type</th><th>Label</th><th>Description</th></tr></thead><tbody>
-<tr><td>type_url</td><td><a href="google-api.html#string">string</a></td><td></td><td>A URL/resource name that uniquely identifies the type of the serialized protocol buffer message. This string must contain at least one &quot;/&quot; character. The last segment of the URL's path must represent the fully qualified name of the type (as in <code>path/google.protobuf.Duration</code>). The name should be in a canonical form (e.g., leading &quot;.&quot; is not accepted).</td></tr>
+<tr><td>type_url</td><td><a href="google-api.html#string">string</a></td><td></td><td>A URL/resource name that uniquely identifies the type of the serialized protocol buffer message. This string must contain at least one "/" character. The last segment of the URL's path must represent the fully qualified name of the type (as in <code>path/google.protobuf.Duration</code>). The name should be in a canonical form (e.g., leading "." is not accepted).</td></tr>
 </tbody></table>
 </div>
 <p>In practice, teams usually precompile into the binary all types that they expect it to use in the context of Any. However, for URLs which use the scheme <code>http</code>, <code>https</code>, or no scheme, one can optionally set up a type server that maps type URLs to message definitions as follows:</p>
@@ -617,7 +620,7 @@ field. Example (for message [google.protobuf.Duration][]):</p>
 </tbody></table>
 </div>
 <p>This should be used to indicate errors in .proto files which prevent the code generator from generating correct code. Errors which indicate a problem in protoc itself -- such as the input CodeGeneratorRequest being unparseable -- should be reported by writing a message to stderr and exiting with a non-zero status code. |
-| supported_features | <a href="google-api.html#uint64">uint64</a> | optional | A bitmask of supported features that the code generator supports. This is a bitwise &quot;or&quot; of values from the Feature enum. |
+| supported_features | <a href="google-api.html#uint64">uint64</a> | optional | A bitmask of supported features that the code generator supports. This is a bitwise "or" of values from the Feature enum. |
 | minimum_edition | <a href="google-api.html#int32">int32</a> | optional | The minimum edition this plugin supports. This will be treated as an Edition enum, but we want to allow unknown values. It should be specified according the edition enum value, <em>not</em> the edition number. Only takes effect for plugins that have FEATURE_SUPPORTS_EDITIONS set. |
 | maximum_edition | <a href="google-api.html#int32">int32</a> | optional | The maximum edition this plugin supports. This will be treated as an Edition enum, but we want to allow unknown values. It should be specified according the edition enum value, <em>not</em> the edition number. Only takes effect for plugins that have FEATURE_SUPPORTS_EDITIONS set. |
 | file | <a href="google-api.html#google-protobuf-compiler-CodeGeneratorResponse-File">CodeGeneratorResponse.File</a> | repeated |  |</p>
@@ -625,12 +628,12 @@ field. Example (for message [google.protobuf.Duration][]):</p>
 <h3 id="codegeneratorresponsefile"><a class="header" href="#codegeneratorresponsefile">CodeGeneratorResponse.File</a></h3>
 <p>Represents a single generated file.</p>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Type</th><th>Label</th><th>Description</th></tr></thead><tbody>
-<tr><td>name</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>The file name, relative to the output directory. The name must not contain &quot;.&quot; or &quot;..&quot; components and must be relative, not be absolute (so, the file cannot lie outside the output directory). &quot;/&quot; must be used as the path separator, not &quot;&amp;#34;.</td></tr>
+<tr><td>name</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>The file name, relative to the output directory. The name must not contain "." or ".." components and must be relative, not be absolute (so, the file cannot lie outside the output directory). "/" must be used as the path separator, not "&amp;#34;.</td></tr>
 </tbody></table>
 </div>
 <p>If the name is omitted, the content will be appended to the previous file. This allows the generator to break large files into small chunks, and allows the generated text to be streamed back to protoc so that large files need not reside completely in memory at one time. Note that as of this writing protoc does not optimize for this -- it will read the entire CodeGeneratorResponse before writing files to disk. |
 | insertion_point | <a href="google-api.html#string">string</a> | optional | If non-empty, indicates that the named file should already exist, and the content here is to be inserted into that file at a defined insertion point. This feature allows a code generator to extend the output produced by another code generator. The original generator may provide insertion points by placing special annotations in the file that look like: @@protoc_insertion_point(NAME) The annotation can have arbitrary text before and after it on the line, which allows it to be placed in a comment. NAME should be replaced with an identifier naming the point -- this is what other generators will use as the insertion_point. Code inserted at this point will be placed immediately above the line containing the insertion point (thus multiple insertions to the same point will come out in the order they were added). The double-@ is intended to make it unlikely that the generated code could contain things that look like insertion points by accident.</p>
-<p>For example, the C++ code generator places the following line in the .pb.h files that it generates: // @@protoc_insertion_point(namespace_scope) This line appears within the scope of the file's package namespace, but outside of any particular class. Another plugin can then specify the insertion_point &quot;namespace_scope&quot; to generate additional classes or other declarations that should be placed in this scope.</p>
+<p>For example, the C++ code generator places the following line in the .pb.h files that it generates: // @@protoc_insertion_point(namespace_scope) This line appears within the scope of the file's package namespace, but outside of any particular class. Another plugin can then specify the insertion_point "namespace_scope" to generate additional classes or other declarations that should be placed in this scope.</p>
 <p>Note that if the line containing the insertion point begins with whitespace, the same whitespace will be added to every line of the inserted text. This is useful for languages like Python, where indentation matters. In these languages, the insertion point comment should be indented the same amount as any inserted code will need to be in order to work correctly in that context.</p>
 <p>The code generator that generates the initial file and the one which inserts into it must both run as part of a single invocation of protoc. Code generators are executed in the order in which they appear on the command line.</p>
 <p>If |insertion_point| is present, |name| must also be present. |
@@ -643,7 +646,7 @@ field. Example (for message [google.protobuf.Duration][]):</p>
 <tr><td>major</td><td><a href="google-api.html#int32">int32</a></td><td>optional</td><td></td></tr>
 <tr><td>minor</td><td><a href="google-api.html#int32">int32</a></td><td>optional</td><td></td></tr>
 <tr><td>patch</td><td><a href="google-api.html#int32">int32</a></td><td>optional</td><td></td></tr>
-<tr><td>suffix</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>A suffix for alpha, beta or rc release, e.g., &quot;alpha-1&quot;, &quot;rc2&quot;. It should be empty for mainline stable releases.</td></tr>
+<tr><td>suffix</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>A suffix for alpha, beta or rc release, e.g., "alpha-1", "rc2". It should be empty for mainline stable releases.</td></tr>
 </tbody></table>
 </div>
 <p><a name="google-protobuf-compiler-CodeGeneratorResponse-Feature"></a></p>
@@ -721,7 +724,7 @@ domain.</p>
 <tr><td>allow_alias</td><td><a href="google-api.html#bool">bool</a></td><td>optional</td><td>Set this option to true to allow mapping different tag names to the same value.</td></tr>
 <tr><td>deprecated</td><td><a href="google-api.html#bool">bool</a></td><td>optional</td><td>Is this enum deprecated? Depending on the target platform, this can emit Deprecated annotations for the enum, or it will be completely ignored; in the very least, this is a formalization for deprecating enums. Default: false</td></tr>
 <tr><td>deprecated_legacy_json_field_conflicts</td><td><a href="google-api.html#bool">bool</a></td><td>optional</td><td><strong>Deprecated.</strong> Enable the legacy handling of JSON field name conflicts. This lowercases and strips underscored from the fields before comparison in proto3 only. The new behavior takes <code>json_name</code> into account and applies to proto2 as well. TODO Remove this legacy behavior once downstream teams have had time to migrate.</td></tr>
-<tr><td>features</td><td><a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a></td><td>optional</td><td>Any features defined in the specific edition.</td></tr>
+<tr><td>features</td><td><a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a></td><td>optional</td><td>Any features defined in the specific edition. WARNING: This field should only be used by protobuf plugins or special cases like the proto compiler. Other uses are discouraged and developers should rely on the protoreflect APIs for their client language.</td></tr>
 <tr><td>uninterpreted_option</td><td><a href="google-api.html#google-protobuf-UninterpretedOption">UninterpretedOption</a></td><td>repeated</td><td>The parser stores options it doesn't recognize here. See above.</td></tr>
 </tbody></table>
 </div>
@@ -738,8 +741,9 @@ domain.</p>
 <h3 id="enumvalueoptions"><a class="header" href="#enumvalueoptions">EnumValueOptions</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Type</th><th>Label</th><th>Description</th></tr></thead><tbody>
 <tr><td>deprecated</td><td><a href="google-api.html#bool">bool</a></td><td>optional</td><td>Is this enum value deprecated? Depending on the target platform, this can emit Deprecated annotations for the enum value, or it will be completely ignored; in the very least, this is a formalization for deprecating enum values. Default: false</td></tr>
-<tr><td>features</td><td><a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a></td><td>optional</td><td>Any features defined in the specific edition.</td></tr>
+<tr><td>features</td><td><a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a></td><td>optional</td><td>Any features defined in the specific edition. WARNING: This field should only be used by protobuf plugins or special cases like the proto compiler. Other uses are discouraged and developers should rely on the protoreflect APIs for their client language.</td></tr>
 <tr><td>debug_redact</td><td><a href="google-api.html#bool">bool</a></td><td>optional</td><td>Indicate that fields annotated with this enum value should not be printed out when using debug formats, e.g. when the field contains sensitive credentials. Default: false</td></tr>
+<tr><td>feature_support</td><td><a href="google-api.html#google-protobuf-FieldOptions-FeatureSupport">FieldOptions.FeatureSupport</a></td><td>optional</td><td>Information about the support window of a feature value.</td></tr>
 <tr><td>uninterpreted_option</td><td><a href="google-api.html#google-protobuf-UninterpretedOption">UninterpretedOption</a></td><td>repeated</td><td>The parser stores options it doesn't recognize here. See above.</td></tr>
 </tbody></table>
 </div>
@@ -799,7 +803,8 @@ the defaults at the closest matching edition ordered at or before it should
 be used.  This field must be in strict ascending order by edition.</p>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Type</th><th>Label</th><th>Description</th></tr></thead><tbody>
 <tr><td>edition</td><td><a href="google-api.html#google-protobuf-Edition">Edition</a></td><td>optional</td><td></td></tr>
-<tr><td>features</td><td><a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a></td><td>optional</td><td></td></tr>
+<tr><td>overridable_features</td><td><a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a></td><td>optional</td><td>Defaults of features that can be overridden in this edition.</td></tr>
+<tr><td>fixed_features</td><td><a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a></td><td>optional</td><td>Defaults of features that can't be overridden in this edition.</td></tr>
 </tbody></table>
 </div>
 <p><a name="google-protobuf-FieldDescriptorProto"></a></p>
@@ -812,22 +817,22 @@ be used.  This field must be in strict ascending order by edition.</p>
 <tr><td>type</td><td><a href="google-api.html#google-protobuf-FieldDescriptorProto-Type">FieldDescriptorProto.Type</a></td><td>optional</td><td>If type_name is set, this need not be set. If both this and type_name are set, this must be one of TYPE_ENUM, TYPE_MESSAGE or TYPE_GROUP.</td></tr>
 <tr><td>type_name</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>For message and enum types, this is the name of the type. If the name starts with a '.', it is fully-qualified. Otherwise, C++-like scoping rules are used to find the type (i.e. first the nested types within this message are searched, then within the parent, on up to the root namespace).</td></tr>
 <tr><td>extendee</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>For extensions, this is the name of the type being extended. It is resolved in the same manner as type_name.</td></tr>
-<tr><td>default_value</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>For numeric types, contains the original text representation of the value. For booleans, &quot;true&quot; or &quot;false&quot;. For strings, contains the default text contents (not escaped in any way). For bytes, contains the C escaped value. All bytes &gt;= 128 are escaped.</td></tr>
+<tr><td>default_value</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>For numeric types, contains the original text representation of the value. For booleans, "true" or "false". For strings, contains the default text contents (not escaped in any way). For bytes, contains the C escaped value. All bytes &gt;= 128 are escaped.</td></tr>
 <tr><td>oneof_index</td><td><a href="google-api.html#int32">int32</a></td><td>optional</td><td>If set, gives the index of a oneof in the containing type's oneof_decl list. This field is a member of that oneof.</td></tr>
-<tr><td>json_name</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>JSON name of this field. The value is set by protocol compiler. If the user has set a &quot;json_name&quot; option on this field, that option's value will be used. Otherwise, it's deduced from the field's name by converting it to camelCase.</td></tr>
+<tr><td>json_name</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>JSON name of this field. The value is set by protocol compiler. If the user has set a "json_name" option on this field, that option's value will be used. Otherwise, it's deduced from the field's name by converting it to camelCase.</td></tr>
 <tr><td>options</td><td><a href="google-api.html#google-protobuf-FieldOptions">FieldOptions</a></td><td>optional</td><td></td></tr>
-<tr><td>proto3_optional</td><td><a href="google-api.html#bool">bool</a></td><td>optional</td><td>If true, this is a proto3 &quot;optional&quot;. When a proto3 field is optional, it tracks presence regardless of field type.</td></tr>
+<tr><td>proto3_optional</td><td><a href="google-api.html#bool">bool</a></td><td>optional</td><td>If true, this is a proto3 "optional". When a proto3 field is optional, it tracks presence regardless of field type.</td></tr>
 </tbody></table>
 </div>
-<p>When proto3_optional is true, this field must belong to a oneof to signal to old proto3 clients that presence is tracked for this field. This oneof is known as a &quot;synthetic&quot; oneof, and this field must be its sole member (each proto3 optional field gets its own synthetic oneof). Synthetic oneofs exist in the descriptor only, and do not generate any API. Synthetic oneofs must be ordered after all &quot;real&quot; oneofs.</p>
-<p>For message fields, proto3_optional doesn't create any semantic change, since non-repeated message fields always track presence. However it still indicates the semantic detail of whether the user wrote &quot;optional&quot; or not. This can be useful for round-tripping the .proto file. For consistency we give message fields a synthetic oneof also, even though it is not required to track presence. This is especially important because the parser can't tell if a field is a message or an enum, so it must always create a synthetic oneof.</p>
+<p>When proto3_optional is true, this field must belong to a oneof to signal to old proto3 clients that presence is tracked for this field. This oneof is known as a "synthetic" oneof, and this field must be its sole member (each proto3 optional field gets its own synthetic oneof). Synthetic oneofs exist in the descriptor only, and do not generate any API. Synthetic oneofs must be ordered after all "real" oneofs.</p>
+<p>For message fields, proto3_optional doesn't create any semantic change, since non-repeated message fields always track presence. However it still indicates the semantic detail of whether the user wrote "optional" or not. This can be useful for round-tripping the .proto file. For consistency we give message fields a synthetic oneof also, even though it is not required to track presence. This is especially important because the parser can't tell if a field is a message or an enum, so it must always create a synthetic oneof.</p>
 <p>Proto2 optional fields do not set this flag, because they already indicate optional with <code>LABEL_OPTIONAL</code>. |</p>
 <p><a name="google-protobuf-FieldOptions"></a></p>
 <h3 id="fieldoptions"><a class="header" href="#fieldoptions">FieldOptions</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Type</th><th>Label</th><th>Description</th></tr></thead><tbody>
-<tr><td>ctype</td><td><a href="google-api.html#google-protobuf-FieldOptions-CType">FieldOptions.CType</a></td><td>optional</td><td>The ctype option instructs the C++ code generator to use a different representation of the field than it normally would. See the specific options below. This option is only implemented to support use of [ctype=CORD] and [ctype=STRING] (the default) on non-repeated fields of type &quot;bytes&quot; in the open source release -- sorry, we'll try to include other types in a future version! Default: STRING</td></tr>
+<tr><td>ctype</td><td><a href="google-api.html#google-protobuf-FieldOptions-CType">FieldOptions.CType</a></td><td>optional</td><td>NOTE: ctype is deprecated. Use <code>features.(pb.cpp).string_type</code> instead. The ctype option instructs the C++ code generator to use a different representation of the field than it normally would. See the specific options below. This option is only implemented to support use of [ctype=CORD] and [ctype=STRING] (the default) on non-repeated fields of type "bytes" in the open source release. TODO: make ctype actually deprecated. Default: STRING</td></tr>
 <tr><td>packed</td><td><a href="google-api.html#bool">bool</a></td><td>optional</td><td>The packed option can be enabled for repeated primitive fields to enable a more efficient representation on the wire. Rather than repeatedly writing the tag and type for each element, the entire array is encoded as a single length-delimited blob. In proto3, only explicit setting it to false will avoid using packed encoding. This option is prohibited in Editions, but the <code>repeated_field_encoding</code> feature can be used to control the behavior.</td></tr>
-<tr><td>jstype</td><td><a href="google-api.html#google-protobuf-FieldOptions-JSType">FieldOptions.JSType</a></td><td>optional</td><td>The jstype option determines the JavaScript type used for values of the field. The option is permitted only for 64 bit integral and fixed types (int64, uint64, sint64, fixed64, sfixed64). A field with jstype JS_STRING is represented as JavaScript string, which avoids loss of precision that can happen when a large value is converted to a floating point JavaScript. Specifying JS_NUMBER for the jstype causes the generated JavaScript code to use the JavaScript &quot;number&quot; type. The behavior of the default option JS_NORMAL is implementation dependent.</td></tr>
+<tr><td>jstype</td><td><a href="google-api.html#google-protobuf-FieldOptions-JSType">FieldOptions.JSType</a></td><td>optional</td><td>The jstype option determines the JavaScript type used for values of the field. The option is permitted only for 64 bit integral and fixed types (int64, uint64, sint64, fixed64, sfixed64). A field with jstype JS_STRING is represented as JavaScript string, which avoids loss of precision that can happen when a large value is converted to a floating point JavaScript. Specifying JS_NUMBER for the jstype causes the generated JavaScript code to use the JavaScript "number" type. The behavior of the default option JS_NORMAL is implementation dependent.</td></tr>
 </tbody></table>
 </div>
 <p>This option is an enum to permit additional types to be added, e.g. goog.math.Integer. Default: JS_NORMAL |
@@ -842,7 +847,8 @@ be used.  This field must be in strict ascending order by edition.</p>
 | retention | <a href="google-api.html#google-protobuf-FieldOptions-OptionRetention">FieldOptions.OptionRetention</a> | optional |  |
 | targets | <a href="google-api.html#google-protobuf-FieldOptions-OptionTargetType">FieldOptions.OptionTargetType</a> | repeated |  |
 | edition_defaults | <a href="google-api.html#google-protobuf-FieldOptions-EditionDefault">FieldOptions.EditionDefault</a> | repeated |  |
-| features | <a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a> | optional | Any features defined in the specific edition. |
+| features | <a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a> | optional | Any features defined in the specific edition. WARNING: This field should only be used by protobuf plugins or special cases like the proto compiler. Other uses are discouraged and developers should rely on the protoreflect APIs for their client language. |
+| feature_support | <a href="google-api.html#google-protobuf-FieldOptions-FeatureSupport">FieldOptions.FeatureSupport</a> | optional |  |
 | uninterpreted_option | <a href="google-api.html#google-protobuf-UninterpretedOption">UninterpretedOption</a> | repeated | The parser stores options it doesn't recognize here. See above. |</p>
 <p><a name="google-protobuf-FieldOptions-EditionDefault"></a></p>
 <h3 id="fieldoptionseditiondefault"><a class="header" href="#fieldoptionseditiondefault">FieldOptions.EditionDefault</a></h3>
@@ -851,12 +857,22 @@ be used.  This field must be in strict ascending order by edition.</p>
 <tr><td>value</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>Textproto value.</td></tr>
 </tbody></table>
 </div>
+<p><a name="google-protobuf-FieldOptions-FeatureSupport"></a></p>
+<h3 id="fieldoptionsfeaturesupport"><a class="header" href="#fieldoptionsfeaturesupport">FieldOptions.FeatureSupport</a></h3>
+<p>Information about the support window of a feature.</p>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Type</th><th>Label</th><th>Description</th></tr></thead><tbody>
+<tr><td>edition_introduced</td><td><a href="google-api.html#google-protobuf-Edition">Edition</a></td><td>optional</td><td>The edition that this feature was first available in. In editions earlier than this one, the default assigned to EDITION_LEGACY will be used, and proto files will not be able to override it.</td></tr>
+<tr><td>edition_deprecated</td><td><a href="google-api.html#google-protobuf-Edition">Edition</a></td><td>optional</td><td>The edition this feature becomes deprecated in. Using this after this edition may trigger warnings.</td></tr>
+<tr><td>deprecation_warning</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>The deprecation warning text if this feature is used after the edition it was marked deprecated in.</td></tr>
+<tr><td>edition_removed</td><td><a href="google-api.html#google-protobuf-Edition">Edition</a></td><td>optional</td><td>The edition this feature is no longer available in. In editions after this one, the last default assigned will be used, and proto files will not be able to override it.</td></tr>
+</tbody></table>
+</div>
 <p><a name="google-protobuf-FileDescriptorProto"></a></p>
 <h3 id="filedescriptorproto"><a class="header" href="#filedescriptorproto">FileDescriptorProto</a></h3>
 <p>Describes a complete .proto file.</p>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Type</th><th>Label</th><th>Description</th></tr></thead><tbody>
 <tr><td>name</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>file name, relative to root of source tree</td></tr>
-<tr><td>package</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>e.g. &quot;foo&quot;, &quot;foo.bar&quot;, etc.</td></tr>
+<tr><td>package</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>e.g. "foo", "foo.bar", etc.</td></tr>
 <tr><td>dependency</td><td><a href="google-api.html#string">string</a></td><td>repeated</td><td>Names of files imported by this file.</td></tr>
 <tr><td>public_dependency</td><td><a href="google-api.html#int32">int32</a></td><td>repeated</td><td>Indexes of the public imported files in the dependency list above.</td></tr>
 <tr><td>weak_dependency</td><td><a href="google-api.html#int32">int32</a></td><td>repeated</td><td>Indexes of the weak imported files in the dependency list. For Google-internal migration only. Do not use.</td></tr>
@@ -866,11 +882,11 @@ be used.  This field must be in strict ascending order by edition.</p>
 <tr><td>extension</td><td><a href="google-api.html#google-protobuf-FieldDescriptorProto">FieldDescriptorProto</a></td><td>repeated</td><td></td></tr>
 <tr><td>options</td><td><a href="google-api.html#google-protobuf-FileOptions">FileOptions</a></td><td>optional</td><td></td></tr>
 <tr><td>source_code_info</td><td><a href="google-api.html#google-protobuf-SourceCodeInfo">SourceCodeInfo</a></td><td>optional</td><td>This field contains optional information about the original source code. You may safely remove this entire field without harming runtime functionality of the descriptors -- the information is needed only by development tools.</td></tr>
-<tr><td>syntax</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>The syntax of the proto file. The supported values are &quot;proto2&quot;, &quot;proto3&quot;, and &quot;editions&quot;.</td></tr>
+<tr><td>syntax</td><td><a href="google-api.html#string">string</a></td><td>optional</td><td>The syntax of the proto file. The supported values are "proto2", "proto3", and "editions".</td></tr>
 </tbody></table>
 </div>
-<p>If <code>edition</code> is present, this value must be &quot;editions&quot;. |
-| edition | <a href="google-api.html#google-protobuf-Edition">Edition</a> | optional | The edition of the proto file. |</p>
+<p>If <code>edition</code> is present, this value must be "editions". WARNING: This field should only be used by protobuf plugins or special cases like the proto compiler. Other uses are discouraged and developers should rely on the protoreflect APIs for their client language. |
+| edition | <a href="google-api.html#google-protobuf-Edition">Edition</a> | optional | The edition of the proto file. WARNING: This field should only be used by protobuf plugins or special cases like the proto compiler. Other uses are discouraged and developers should rely on the protoreflect APIs for their client language. |</p>
 <p><a name="google-protobuf-FileDescriptorSet"></a></p>
 <h3 id="filedescriptorset"><a class="header" href="#filedescriptorset">FileDescriptorSet</a></h3>
 <p>The protocol compiler can output a FileDescriptorSet containing the .proto
@@ -893,7 +909,7 @@ files it parses.</p>
 <p>Proto3 files already perform these checks. Setting the option explicitly to false has no effect: it cannot be used to opt proto3 files out of UTF-8 checks. Default: false |
 | optimize_for | <a href="google-api.html#google-protobuf-FileOptions-OptimizeMode">FileOptions.OptimizeMode</a> | optional |  Default: SPEED |
 | go_package | <a href="google-api.html#string">string</a> | optional | Sets the Go package where structs generated from this .proto will be placed. If omitted, the Go package will be derived from the following: - The basename of the package import path, if provided. - Otherwise, the package statement in the .proto file, if present. - Otherwise, the basename of the .proto file, without extension. |
-| cc_generic_services | <a href="google-api.html#bool">bool</a> | optional | Should generic services be generated in each language? &quot;Generic&quot; services are not specific to any particular RPC system. They are generated by the main code generators in each language (without additional plugins). Generic services were the only kind of service generation supported by early versions of google.protobuf.</p>
+| cc_generic_services | <a href="google-api.html#bool">bool</a> | optional | Should generic services be generated in each language? "Generic" services are not specific to any particular RPC system. They are generated by the main code generators in each language (without additional plugins). Generic services were the only kind of service generation supported by early versions of google.protobuf.</p>
 <p>Generic services are now considered deprecated in favor of using plugins that generate code specific to your particular RPC system. Therefore, these default to false. Old code which depends on generic services should explicitly set them to true. Default: false |
 | java_generic_services | <a href="google-api.html#bool">bool</a> | optional |  Default: false |
 | py_generic_services | <a href="google-api.html#bool">bool</a> | optional |  Default: false |
@@ -906,8 +922,8 @@ files it parses.</p>
 | php_namespace | <a href="google-api.html#string">string</a> | optional | Use this option to change the namespace of php generated classes. Default is empty. When this option is empty, the package name will be used for determining the namespace. |
 | php_metadata_namespace | <a href="google-api.html#string">string</a> | optional | Use this option to change the namespace of php generated metadata classes. Default is empty. When this option is empty, the proto file name will be used for determining the namespace. |
 | ruby_package | <a href="google-api.html#string">string</a> | optional | Use this option to change the package of ruby generated classes. Default is empty. When this option is not set, the package name will be used for determining the ruby package. |
-| features | <a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a> | optional | Any features defined in the specific edition. |
-| uninterpreted_option | <a href="google-api.html#google-protobuf-UninterpretedOption">UninterpretedOption</a> | repeated | The parser stores options it doesn't recognize here. See the documentation for the &quot;Options&quot; section above. |</p>
+| features | <a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a> | optional | Any features defined in the specific edition. WARNING: This field should only be used by protobuf plugins or special cases like the proto compiler. Other uses are discouraged and developers should rely on the protoreflect APIs for their client language. |
+| uninterpreted_option | <a href="google-api.html#google-protobuf-UninterpretedOption">UninterpretedOption</a> | repeated | The parser stores options it doesn't recognize here. See the documentation for the "Options" section above. |</p>
 <p><a name="google-protobuf-GeneratedCodeInfo"></a></p>
 <h3 id="generatedcodeinfo"><a class="header" href="#generatedcodeinfo">GeneratedCodeInfo</a></h3>
 <p>Describes the relationship between generated code and its original source
@@ -936,7 +952,7 @@ source file, but may contain references to different source .proto files.</p>
 <p>The message must be defined exactly as follows: message Foo { option message_set_wire_format = true; extensions 4 to max; } Note that the message cannot have any defined fields; MessageSets only have extensions.</p>
 <p>All extensions of your type must be singular messages; e.g. they cannot be int32s, enums, or repeated messages.</p>
 <p>Because this is an option, the above two restrictions are not enforced by the protocol compiler. Default: false |
-| no_standard_descriptor_accessor | <a href="google-api.html#bool">bool</a> | optional | Disables the generation of the standard &quot;descriptor()&quot; accessor, which can conflict with a field of the same name. This is meant to make migration from proto1 easier; new code should avoid fields named &quot;descriptor&quot;. Default: false |
+| no_standard_descriptor_accessor | <a href="google-api.html#bool">bool</a> | optional | Disables the generation of the standard "descriptor()" accessor, which can conflict with a field of the same name. This is meant to make migration from proto1 easier; new code should avoid fields named "descriptor". Default: false |
 | deprecated | <a href="google-api.html#bool">bool</a> | optional | Is this message deprecated? Depending on the target platform, this can emit Deprecated annotations for the message, or it will be completely ignored; in the very least, this is a formalization for deprecating messages. Default: false |
 | map_entry | <a href="google-api.html#bool">bool</a> | optional | Whether the message is an automatically generated map entry type for the maps field.</p>
 <p>For maps fields: map&lt;KeyType, ValueType&gt; map_field = 1; The parsed descriptor looks like: message MapFieldEntry { option map_entry = true; optional KeyType key = 1; optional ValueType value = 2; } repeated MapFieldEntry map_field = 1;</p>
@@ -945,7 +961,7 @@ source file, but may contain references to different source .proto files.</p>
 | deprecated_legacy_json_field_conflicts | <a href="google-api.html#bool">bool</a> | optional | <strong>Deprecated.</strong> Enable the legacy handling of JSON field name conflicts. This lowercases and strips underscored from the fields before comparison in proto3 only. The new behavior takes <code>json_name</code> into account and applies to proto2 as well.</p>
 <p>This should only be used as a temporary measure against broken builds due to the change in behavior for JSON field name conflicts.</p>
 <p>TODO This is legacy behavior we plan to remove once downstream teams have had time to migrate. |
-| features | <a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a> | optional | Any features defined in the specific edition. |
+| features | <a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a> | optional | Any features defined in the specific edition. WARNING: This field should only be used by protobuf plugins or special cases like the proto compiler. Other uses are discouraged and developers should rely on the protoreflect APIs for their client language. |
 | uninterpreted_option | <a href="google-api.html#google-protobuf-UninterpretedOption">UninterpretedOption</a> | repeated | The parser stores options it doesn't recognize here. See above. |</p>
 <p><a name="google-protobuf-MethodDescriptorProto"></a></p>
 <h3 id="methoddescriptorproto"><a class="header" href="#methoddescriptorproto">MethodDescriptorProto</a></h3>
@@ -964,7 +980,7 @@ source file, but may contain references to different source .proto files.</p>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Type</th><th>Label</th><th>Description</th></tr></thead><tbody>
 <tr><td>deprecated</td><td><a href="google-api.html#bool">bool</a></td><td>optional</td><td>Is this method deprecated? Depending on the target platform, this can emit Deprecated annotations for the method, or it will be completely ignored; in the very least, this is a formalization for deprecating methods. Default: false</td></tr>
 <tr><td>idempotency_level</td><td><a href="google-api.html#google-protobuf-MethodOptions-IdempotencyLevel">MethodOptions.IdempotencyLevel</a></td><td>optional</td><td>Default: IDEMPOTENCY_UNKNOWN</td></tr>
-<tr><td>features</td><td><a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a></td><td>optional</td><td>Any features defined in the specific edition.</td></tr>
+<tr><td>features</td><td><a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a></td><td>optional</td><td>Any features defined in the specific edition. WARNING: This field should only be used by protobuf plugins or special cases like the proto compiler. Other uses are discouraged and developers should rely on the protoreflect APIs for their client language.</td></tr>
 <tr><td>uninterpreted_option</td><td><a href="google-api.html#google-protobuf-UninterpretedOption">UninterpretedOption</a></td><td>repeated</td><td>The parser stores options it doesn't recognize here. See above.</td></tr>
 </tbody></table>
 </div>
@@ -979,7 +995,7 @@ source file, but may contain references to different source .proto files.</p>
 <p><a name="google-protobuf-OneofOptions"></a></p>
 <h3 id="oneofoptions"><a class="header" href="#oneofoptions">OneofOptions</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Type</th><th>Label</th><th>Description</th></tr></thead><tbody>
-<tr><td>features</td><td><a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a></td><td>optional</td><td>Any features defined in the specific edition.</td></tr>
+<tr><td>features</td><td><a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a></td><td>optional</td><td>Any features defined in the specific edition. WARNING: This field should only be used by protobuf plugins or special cases like the proto compiler. Other uses are discouraged and developers should rely on the protoreflect APIs for their client language.</td></tr>
 <tr><td>uninterpreted_option</td><td><a href="google-api.html#google-protobuf-UninterpretedOption">UninterpretedOption</a></td><td>repeated</td><td>The parser stores options it doesn't recognize here. See above.</td></tr>
 </tbody></table>
 </div>
@@ -995,7 +1011,7 @@ source file, but may contain references to different source .proto files.</p>
 <p><a name="google-protobuf-ServiceOptions"></a></p>
 <h3 id="serviceoptions"><a class="header" href="#serviceoptions">ServiceOptions</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Type</th><th>Label</th><th>Description</th></tr></thead><tbody>
-<tr><td>features</td><td><a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a></td><td>optional</td><td>Any features defined in the specific edition.</td></tr>
+<tr><td>features</td><td><a href="google-api.html#google-protobuf-FeatureSet">FeatureSet</a></td><td>optional</td><td>Any features defined in the specific edition. WARNING: This field should only be used by protobuf plugins or special cases like the proto compiler. Other uses are discouraged and developers should rely on the protoreflect APIs for their client language.</td></tr>
 <tr><td>deprecated</td><td><a href="google-api.html#bool">bool</a></td><td>optional</td><td>Is this service deprecated? Depending on the target platform, this can emit Deprecated annotations for the service, or it will be completely ignored; in the very least, this is a formalization for deprecating services. Default: false</td></tr>
 <tr><td>uninterpreted_option</td><td><a href="google-api.html#google-protobuf-UninterpretedOption">UninterpretedOption</a></td><td>repeated</td><td>The parser stores options it doesn't recognize here. See above.</td></tr>
 </tbody></table>
@@ -1009,7 +1025,7 @@ FileDescriptorProto was generated.</p>
 </tbody></table>
 </div>
 <p>For example, say we have a file like: message Foo { optional string foo = 1; } Let's look at just the field definition: optional string foo = 1; ^ ^^ ^^ ^ ^^^ a bc de f ghi We have the following locations: span path represents [a,i) [ 4, 0, 2, 0 ] The whole field definition. [a,b) [ 4, 0, 2, 0, 4 ] The label (optional). [c,d) [ 4, 0, 2, 0, 5 ] The type (string). [e,f) [ 4, 0, 2, 0, 1 ] The name (foo). [g,h) [ 4, 0, 2, 0, 3 ] The number (1).</p>
-<p>Notes: - A location may refer to a repeated field itself (i.e. not to any particular index within it). This is used whenever a set of elements are logically enclosed in a single code segment. For example, an entire extend block (possibly containing multiple extension definitions) will have an outer location whose path refers to the &quot;extensions&quot; repeated field without an index. - Multiple locations may have the same path. This happens when a single logical declaration is spread out across multiple places. The most obvious example is the &quot;extend&quot; block again -- there may be multiple extend blocks in the same scope, each of which will have the same path. - A location's span is not always a subset of its parent's span. For example, the &quot;extendee&quot; of an extension declaration appears at the beginning of the &quot;extend&quot; block and is shared by all extensions within the block. - Just because a location's span is a subset of some other location's span does not mean that it is a descendant. For example, a &quot;group&quot; defines both a type and a field in a single declaration. Thus, the locations corresponding to the type and field and their components will overlap. - Code which tries to interpret locations should probably be designed to ignore those that it doesn't understand, as more types of locations could be recorded in the future. |</p>
+<p>Notes: - A location may refer to a repeated field itself (i.e. not to any particular index within it). This is used whenever a set of elements are logically enclosed in a single code segment. For example, an entire extend block (possibly containing multiple extension definitions) will have an outer location whose path refers to the "extensions" repeated field without an index. - Multiple locations may have the same path. This happens when a single logical declaration is spread out across multiple places. The most obvious example is the "extend" block again -- there may be multiple extend blocks in the same scope, each of which will have the same path. - A location's span is not always a subset of its parent's span. For example, the "extendee" of an extension declaration appears at the beginning of the "extend" block and is shared by all extensions within the block. - Just because a location's span is a subset of some other location's span does not mean that it is a descendant. For example, a "group" defines both a type and a field in a single declaration. Thus, the locations corresponding to the type and field and their components will overlap. - Code which tries to interpret locations should probably be designed to ignore those that it doesn't understand, as more types of locations could be recorded in the future. |</p>
 <p><a name="google-protobuf-SourceCodeInfo-Location"></a></p>
 <h3 id="sourcecodeinfolocation"><a class="header" href="#sourcecodeinfolocation">SourceCodeInfo.Location</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Type</th><th>Label</th><th>Description</th></tr></thead><tbody>
@@ -1056,8 +1072,8 @@ in them.</p>
 <p>The name of the uninterpreted option.  Each string represents a segment in
 a dot-separated name.  is_extension is true iff a segment represents an
 extension (denoted with parentheses in options specs in .proto files).
-E.g.,{ [&quot;foo&quot;, false], [&quot;bar.baz&quot;, true], [&quot;moo&quot;, false] } represents
-&quot;foo.(bar.baz).moo&quot;.</p>
+E.g.,{ ["foo", false], ["bar.baz", true], ["moo", false] } represents
+"foo.(bar.baz).moo".</p>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Type</th><th>Label</th><th>Description</th></tr></thead><tbody>
 <tr><td>name_part</td><td><a href="google-api.html#string">string</a></td><td>required</td><td></td></tr>
 <tr><td>is_extension</td><td><a href="google-api.html#bool">bool</a></td><td>required</td><td></td></tr>
@@ -1068,11 +1084,12 @@ E.g.,{ [&quot;foo&quot;, false], [&quot;bar.baz&quot;, true], [&quot;moo&quot;, 
 <p>The full set of known editions.</p>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Number</th><th>Description</th></tr></thead><tbody>
 <tr><td>EDITION_UNKNOWN</td><td>0</td><td>A placeholder for an unknown edition value.</td></tr>
-<tr><td>EDITION_PROTO2</td><td>998</td><td>Legacy syntax &quot;editions&quot;. These pre-date editions, but behave much like distinct editions. These can't be used to specify the edition of proto files, but feature definitions must supply proto2/proto3 defaults for backwards compatibility.</td></tr>
+<tr><td>EDITION_LEGACY</td><td>900</td><td>A placeholder edition for specifying default behaviors <em>before</em> a feature was first introduced. This is effectively an "infinite past".</td></tr>
+<tr><td>EDITION_PROTO2</td><td>998</td><td>Legacy syntax "editions". These pre-date editions, but behave much like distinct editions. These can't be used to specify the edition of proto files, but feature definitions must supply proto2/proto3 defaults for backwards compatibility.</td></tr>
 <tr><td>EDITION_PROTO3</td><td>999</td><td></td></tr>
 <tr><td>EDITION_2023</td><td>1000</td><td>Editions that have been released. The specific values are arbitrary and should not be depended on, but they will always be time-ordered for easy comparison.</td></tr>
 <tr><td>EDITION_2024</td><td>1001</td><td></td></tr>
-<tr><td>EDITION_1_TEST_ONLY</td><td>1</td><td>Placeholder editions for testing feature resolution. These should not be used or relyed on outside of tests.</td></tr>
+<tr><td>EDITION_1_TEST_ONLY</td><td>1</td><td>Placeholder editions for testing feature resolution. These should not be used or relied on outside of tests.</td></tr>
 <tr><td>EDITION_2_TEST_ONLY</td><td>2</td><td></td></tr>
 <tr><td>EDITION_99997_TEST_ONLY</td><td>99997</td><td></td></tr>
 <tr><td>EDITION_99998_TEST_ONLY</td><td>99998</td><td></td></tr>
@@ -1172,7 +1189,7 @@ E.g.,{ [&quot;foo&quot;, false], [&quot;bar.baz&quot;, true], [&quot;moo&quot;, 
 <h3 id="fieldoptionsctype"><a class="header" href="#fieldoptionsctype">FieldOptions.CType</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Number</th><th>Description</th></tr></thead><tbody>
 <tr><td>STRING</td><td>0</td><td>Default mode.</td></tr>
-<tr><td>CORD</td><td>1</td><td>The option [ctype=CORD] may be applied to a non-repeated field of type &quot;bytes&quot;. It indicates that in C++, the data should be stored in a Cord instead of a string. For very large strings, this may reduce memory fragmentation. It may also allow better performance when parsing from a Cord, or when parsing with aliasing enabled, as the parsed Cord may then alias the original buffer.</td></tr>
+<tr><td>CORD</td><td>1</td><td>The option [ctype=CORD] may be applied to a non-repeated field of type "bytes". It indicates that in C++, the data should be stored in a Cord instead of a string. For very large strings, this may reduce memory fragmentation. It may also allow better performance when parsing from a Cord, or when parsing with aliasing enabled, as the parsed Cord may then alias the original buffer.</td></tr>
 <tr><td>STRING_PIECE</td><td>2</td><td></td></tr>
 </tbody></table>
 </div>
@@ -1186,9 +1203,7 @@ E.g.,{ [&quot;foo&quot;, false], [&quot;bar.baz&quot;, true], [&quot;moo&quot;, 
 </div>
 <p><a name="google-protobuf-FieldOptions-OptionRetention"></a></p>
 <h3 id="fieldoptionsoptionretention"><a class="header" href="#fieldoptionsoptionretention">FieldOptions.OptionRetention</a></h3>
-<p>If set to RETENTION_SOURCE, the option will be omitted from the binary.
-Note: as of January 2023, support for this is in progress and does not yet
-have an effect (b/264593489).</p>
+<p>If set to RETENTION_SOURCE, the option will be omitted from the binary.</p>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Number</th><th>Description</th></tr></thead><tbody>
 <tr><td>RETENTION_UNKNOWN</td><td>0</td><td></td></tr>
 <tr><td>RETENTION_RUNTIME</td><td>1</td><td></td></tr>
@@ -1199,8 +1214,7 @@ have an effect (b/264593489).</p>
 <h3 id="fieldoptionsoptiontargettype"><a class="header" href="#fieldoptionsoptiontargettype">FieldOptions.OptionTargetType</a></h3>
 <p>This indicates the types of entities that the field may apply to when used
 as an option. If it is unset, then the field may be freely used as an
-option on any kind of entity. Note: as of January 2023, support for this is
-in progress and does not yet have an effect (b/264593489).</p>
+option on any kind of entity.</p>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Number</th><th>Description</th></tr></thead><tbody>
 <tr><td>TARGET_TYPE_UNKNOWN</td><td>0</td><td></td></tr>
 <tr><td>TARGET_TYPE_FILE</td><td>1</td><td></td></tr>
@@ -1252,8 +1266,8 @@ methods, and PUT verb for idempotent methods instead of the default POST.</p>
 <h3 id="duration"><a class="header" href="#duration">Duration</a></h3>
 <p>A Duration represents a signed, fixed-length span of time represented
 as a count of seconds and fractions of seconds at nanosecond
-resolution. It is independent of any calendar and concepts like &quot;day&quot;
-or &quot;month&quot;. It is related to Timestamp in that the difference between
+resolution. It is independent of any calendar and concepts like "day"
+or "month". It is related to Timestamp in that the difference between
 two Timestamp values is a Duration and it can be added or subtracted
 from a Timestamp. Range is approximately +-10,000 years.</p>
 <h1 id="examples"><a class="header" href="#examples">Examples</a></h1>
@@ -1296,12 +1310,12 @@ duration.FromTimedelta(td)
 </code></pre>
 <h1 id="json-mapping"><a class="header" href="#json-mapping">JSON Mapping</a></h1>
 <p>In JSON format, the Duration type is encoded as a string rather than an
-object, where the string ends in the suffix &quot;s&quot; (indicating seconds) and
+object, where the string ends in the suffix "s" (indicating seconds) and
 is preceded by the number of seconds, with nanoseconds expressed as
 fractional seconds. For example, 3 seconds with 0 nanoseconds should be
-encoded in JSON format as &quot;3s&quot;, while 3 seconds and 1 nanosecond should
-be expressed in JSON format as &quot;3.000000001s&quot;, and 3 seconds and 1
-microsecond should be expressed in JSON format as &quot;3.000001s&quot;.</p>
+encoded in JSON format as "3s", while 3 seconds and 1 nanosecond should
+be expressed in JSON format as "3.000000001s", and 3 seconds and 1
+microsecond should be expressed in JSON format as "3.000001s".</p>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Type</th><th>Label</th><th>Description</th></tr></thead><tbody>
 <tr><td>seconds</td><td><a href="google-api.html#int64">int64</a></td><td></td><td>Signed seconds of the span of time. Must be from -315,576,000,000 to +315,576,000,000 inclusive. Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years</td></tr>
 <tr><td>nanos</td><td><a href="google-api.html#int32">int32</a></td><td></td><td>Signed fractions of a second at nanosecond resolution of the span of time. Durations less than one second are represented with a 0 <code>seconds</code> field and a positive or negative <code>nanos</code> field. For durations of one second or more, a non-zero value for the <code>nanos</code> field must be of the same sign as the <code>seconds</code> field. Must be from -999,999,999 to +999,999,999 inclusive.</td></tr>
@@ -1460,7 +1474,7 @@ calendar, encoded as a count of seconds and fractions of seconds at
 nanosecond resolution. The count is relative to an epoch at UTC midnight on
 January 1, 1970, in the proleptic Gregorian calendar which extends the
 Gregorian calendar backwards to year one.</p>
-<p>All minutes are 60 seconds long. Leap seconds are &quot;smeared&quot; so that no leap
+<p>All minutes are 60 seconds long. Leap seconds are "smeared" so that no leap
 second table is needed for interpretation, using a <a href="https://developers.google.com/time/smear">24-hour linear
 smear</a>.</p>
 <p>The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By
@@ -1511,15 +1525,15 @@ timestamp.GetCurrentTime()
 <h1 id="json-mapping-1"><a class="header" href="#json-mapping-1">JSON Mapping</a></h1>
 <p>In JSON format, the Timestamp type is encoded as a string in the
 <a href="https://www.ietf.org/rfc/rfc3339.txt">RFC 3339</a> format. That is, the
-format is &quot;{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z&quot;
+format is "{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z"
 where {year} is always expressed using four digits while {month}, {day},
 {hour}, {min}, and {sec} are zero-padded to two digits each. The fractional
 seconds, which can go up to 9 digits (i.e. up to 1 nanosecond resolution),
-are optional. The &quot;Z&quot; suffix indicates the timezone (&quot;UTC&quot;); the timezone
+are optional. The "Z" suffix indicates the timezone ("UTC"); the timezone
 is required. A proto3 JSON serializer should always use UTC (as indicated by
-&quot;Z&quot;) when printing the Timestamp type and a proto3 JSON parser should be
+"Z") when printing the Timestamp type and a proto3 JSON parser should be
 able to accept both UTC and other timezones (as indicated by an offset).</p>
-<p>For example, &quot;2017-01-15T01:30:15.01Z&quot; encodes 15.01 seconds past
+<p>For example, "2017-01-15T01:30:15.01Z" encodes 15.01 seconds past
 01:30 UTC on January 15, 2017.</p>
 <p>In JavaScript, one can convert a Date object to this format using the
 standard
