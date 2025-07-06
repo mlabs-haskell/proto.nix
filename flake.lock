@@ -121,11 +121,11 @@
         "nixpkgs-lib": "nixpkgs-lib"
       },
       "locked": {
-        "lastModified": 1749398372,
-        "narHash": "sha256-tYBdgS56eXYaWVW3fsnPQ/nFlgWi/Z2Ymhyu21zVM98=",
+        "lastModified": 1751413152,
+        "narHash": "sha256-Tyw1RjYEsp5scoigs1384gIg6e0GoBVjms4aXFfRssQ=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "9305fe4e5c2a6fcf5ba6a3ff155720fbe4076569",
+        "rev": "77826244401ea9de6e3bac47c2db46005e1f30b5",
         "type": "github"
       },
       "original": {
@@ -195,11 +195,11 @@
     "hackage": {
       "flake": false,
       "locked": {
-        "lastModified": 1751156979,
-        "narHash": "sha256-xxVNDZYJm7xo6BJDViCFwmhkx9oWCoJ4i5Ig3AVyhko=",
+        "lastModified": 1751762534,
+        "narHash": "sha256-1cgym/wJCBXvp1nxQaqbl3H5jvQT+k0RYEUrx6ViDzM=",
         "owner": "input-output-hk",
         "repo": "hackage.nix",
-        "rev": "cffd7b4b1dcd6d2902c21af90d05a8a4b215f6f6",
+        "rev": "8a3ead1cdb6c08344ac1a1450941b3ecc08ef1cf",
         "type": "github"
       },
       "original": {
@@ -211,11 +211,11 @@
     "hackage-for-stackage": {
       "flake": false,
       "locked": {
-        "lastModified": 1751156970,
-        "narHash": "sha256-ukRriYyvcRC5P1vb0gI37wHohpkgu8mGfu5GA4Q4fvY=",
+        "lastModified": 1751761748,
+        "narHash": "sha256-67Bb8MMqih9KEEl7eJI2OApV9yO7Zdl+HkKCOeM2hkI=",
         "owner": "input-output-hk",
         "repo": "hackage.nix",
-        "rev": "b49ecc7c8418b88fa72e72e026d3614807e883a8",
+        "rev": "67cffdc2c98af79ce29ac705b90a5f5f3f57031c",
         "type": "github"
       },
       "original": {
@@ -282,11 +282,11 @@
         "stackage": "stackage"
       },
       "locked": {
-        "lastModified": 1751158347,
-        "narHash": "sha256-/HkeoPtq8kZ8Y0czW5wlsQiiQVkjSUMoEH64u0am1Tg=",
+        "lastModified": 1751763144,
+        "narHash": "sha256-iHSXufG2RQ4fKN6y5ohtTnYUpMjkoOHs1Q0Q5VyB6zo=",
         "owner": "input-output-hk",
         "repo": "haskell.nix",
-        "rev": "ca0eacfc006f10a50672bfd7f98fe47bac48a007",
+        "rev": "985b5fca8249e8ec9aff76b6bc32256b72a75b6a",
         "type": "github"
       },
       "original": {
@@ -681,11 +681,11 @@
     },
     "nixpkgs-lib": {
       "locked": {
-        "lastModified": 1748740939,
-        "narHash": "sha256-rQaysilft1aVMwF14xIdGS3sj1yHlI6oKQNBRTF40cc=",
+        "lastModified": 1751159883,
+        "narHash": "sha256-urW/Ylk9FIfvXfliA1ywh75yszAbiTEVgpPeinFyVZo=",
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
-        "rev": "656a64127e9d791a334452c6b6606d17539476e2",
+        "rev": "14a40a1d7fb9afa4739275ac642ed7301a9ba1ab",
         "type": "github"
       },
       "original": {
@@ -712,11 +712,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1751200386,
-        "narHash": "sha256-Hbli2h1C3pG8nu4wI9qeI1lGFqSkd1uwENRqc9dduJs=",
+        "lastModified": 1751805461,
+        "narHash": "sha256-/x4hTABEx256udl2+skoQAKJCsSAceWMhJZgnwIIyro=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "599c15307b9183452da3087c465de726ca969b47",
+        "rev": "225c2a953f05cc53da57be9a831e167b986f06c5",
         "type": "github"
       },
       "original": {
@@ -781,11 +781,11 @@
     "protobuf": {
       "flake": false,
       "locked": {
-        "lastModified": 1751153672,
-        "narHash": "sha256-8VhNNjZuUDIFarCvNTe1/j04xSkAaEzYSavoMw2oPA8=",
+        "lastModified": 1751481919,
+        "narHash": "sha256-LSV4MqgZkWIalWIfS3kX8JU4xD8pQndazACXEvCEz44=",
         "owner": "protocolbuffers",
         "repo": "protobuf",
-        "rev": "e937f75fb0e2b513643b6cefaccea1d89b0faf84",
+        "rev": "960e79087b332583c80537c949621108a85aa442",
         "type": "github"
       },
       "original": {
@@ -808,11 +808,11 @@
     "stackage": {
       "flake": false,
       "locked": {
-        "lastModified": 1750292027,
-        "narHash": "sha256-rmEsCxLWS/rAdIzZPSi0XbrY2BOztBlSHQHgYoXyovU=",
+        "lastModified": 1751760897,
+        "narHash": "sha256-HSTUhRj6DAP5O91IJGWXCK67SVgVFKjBjcgNoctRMWw=",
         "owner": "input-output-hk",
         "repo": "stackage.nix",
-        "rev": "3f8c717e24953914821f1ddb4797dd768326faa6",
+        "rev": "ebeea9855f42afaca2ddacc4b7225e5294a848ce",
         "type": "github"
       },
       "original": {
