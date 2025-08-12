@@ -2,7 +2,8 @@ _: {
   imports = [
     ./src/pre-commit-hooks.nix
   ];
-  perSystem = { config, ... }:
+  perSystem =
+    { config, ... }:
     {
       devShells.dev-pre-commit = config.pre-commit.devShell;
       devShells.default = config.pre-commit.devShell;
@@ -13,7 +14,7 @@ _: {
           ];
 
           hooks = {
-            nixpkgs-fmt.enable = true;
+            nixfmt-rfc-style.enable = true;
             deadnix.enable = true;
             cabal-fmt.enable = true;
             fourmolu.enable = true;

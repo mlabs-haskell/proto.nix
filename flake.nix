@@ -2,7 +2,7 @@
   description = "proto.nix";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
 
     haskell-nix.url = "github:input-output-hk/haskell.nix";
 
