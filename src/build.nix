@@ -1,4 +1,10 @@
-{ config, flake-parts-lib, lib, ... }: {
+{
+  config,
+  flake-parts-lib,
+  lib,
+  ...
+}:
+{
 
   # Makes a system agnostic option (dunno why I needed this).
   options.proto-nix = lib.mkOption {
@@ -21,8 +27,9 @@
   options = {
 
     # Makes a per system `proto-nix` option.
-    perSystem = flake-parts-lib.mkPerSystemOption
-      ({ pkgs, config, ... }: {
+    perSystem = flake-parts-lib.mkPerSystemOption (
+      { pkgs, config, ... }:
+      {
 
         options.proto-nix = lib.mkOption {
           type = lib.types.anything;
@@ -44,7 +51,8 @@
 
         };
 
-      });
+      }
+    );
 
   };
 }

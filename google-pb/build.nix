@@ -1,7 +1,8 @@
 # Haskell https://github.com/google/proto-lens/blob/master/proto-lens-protobuf-types/proto-lens-protobuf-types.cabal
 { inputs, ... }:
 {
-  perSystem = { config, proto-nix, ... }:
+  perSystem =
+    { config, proto-nix, ... }:
     {
       packages = {
 
@@ -56,13 +57,31 @@
 
         google-hs-pb = proto-nix.haskellProto {
           src = "${inputs.protobuf}/src";
-          protos = [ "google/protobuf/any.proto" "google/protobuf/compiler/plugin.proto" "google/protobuf/descriptor.proto" "google/protobuf/duration.proto" "google/protobuf/empty.proto" "google/protobuf/wrappers.proto" "google/protobuf/struct.proto" "google/protobuf/timestamp.proto" ];
+          protos = [
+            "google/protobuf/any.proto"
+            "google/protobuf/compiler/plugin.proto"
+            "google/protobuf/descriptor.proto"
+            "google/protobuf/duration.proto"
+            "google/protobuf/empty.proto"
+            "google/protobuf/wrappers.proto"
+            "google/protobuf/struct.proto"
+            "google/protobuf/timestamp.proto"
+          ];
           cabalPackageName = "google-pb";
         };
 
         google-pb-docs = proto-nix.docProto {
           src = "${inputs.protobuf}/src";
-          protos = [ "google/protobuf/any.proto" "google/protobuf/compiler/plugin.proto" "google/protobuf/descriptor.proto" "google/protobuf/duration.proto" "google/protobuf/empty.proto" "google/protobuf/wrappers.proto" "google/protobuf/struct.proto" "google/protobuf/timestamp.proto" ];
+          protos = [
+            "google/protobuf/any.proto"
+            "google/protobuf/compiler/plugin.proto"
+            "google/protobuf/descriptor.proto"
+            "google/protobuf/duration.proto"
+            "google/protobuf/empty.proto"
+            "google/protobuf/wrappers.proto"
+            "google/protobuf/struct.proto"
+            "google/protobuf/timestamp.proto"
+          ];
         };
 
       };

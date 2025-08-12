@@ -1,11 +1,13 @@
-pkgs: proto-lens-protoc: { src
-                         , protos ? [ ]
-                         , extraSources ? [ ]
-                         , cabalPackageName
-                         , cabalPackageVersion ? "0.1.0.0"
-                         , cabalBuildDepends ? [ ]
-                         , useGoogleProtosFromHackage ? false
-                         }:
+pkgs: proto-lens-protoc:
+{
+  src,
+  protos ? [ ],
+  extraSources ? [ ],
+  cabalPackageName,
+  cabalPackageVersion ? "0.1.0.0",
+  cabalBuildDepends ? [ ],
+  useGoogleProtosFromHackage ? false,
+}:
 let
   depPackageNames = builtins.map (dep: dep.name) cabalBuildDepends;
   cabalTemplate = pkgs.writeTextFile {
@@ -27,7 +29,9 @@ let
           build-depends:
               base,
               proto-lens-runtime,
-              ${if useGoogleProtosFromHackage then "proto-lens-protobuf-types," else ""}${builtins.concatStringsSep "," depPackageNames}
+              ${
+                if useGoogleProtosFromHackage then "proto-lens-protobuf-types," else ""
+              }${builtins.concatStringsSep "," depPackageNames}
     '';
   };
 

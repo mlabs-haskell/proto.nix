@@ -1,11 +1,13 @@
-{ lib
-, protobuf
-, writeShellScript
-, extraSources
-, linkFarm
-, packageName ? "unspecified"
+{
+  lib,
+  protobuf,
+  writeShellScript,
+  extraSources,
+  linkFarm,
+  packageName ? "unspecified",
 }:
-let inherit (lib) getExe concatMapStringsSep;
+let
+  inherit (lib) getExe concatMapStringsSep;
 
   protocWithExtraSources = writeShellScript "${packageName}-protoc" ''
     ${getExe protobuf} ${concatMapStringsSep " " (s: "-I '${s}'") extraSources} $@
@@ -16,7 +18,10 @@ in
   "include" = "${protobuf}/include";
   "lib" = "${protobuf}/lib";
   "nix-support" = "${protobuf}/nix-support";
-}).overrideAttrs (_: _: {
-  inherit (protobuf) version;
-  meta.mainProgram = "protoc";
-})
+}).overrideAttrs
+  (
+    _: _: {
+      inherit (protobuf) version;
+      meta.mainProgram = "protoc";
+    }
+  )

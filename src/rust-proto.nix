@@ -1,16 +1,20 @@
-pkgs: { src
-      , protos ? [ ]
-      , extraSources ? [ ]
-      , rustCrateName
-      , rustCrateVersion ? "0.1.0"
-      }:
-let inherit (pkgs)
-  # NOTE(chfanghr): I'd love to switch to callPackage pattern
-  stdenv
-  protoc-gen-tonic
-  protoc-gen-prost
-  protoc-gen-prost-crate
-  writeText;
+pkgs:
+{
+  src,
+  protos ? [ ],
+  extraSources ? [ ],
+  rustCrateName,
+  rustCrateVersion ? "0.1.0",
+}:
+let
+  inherit (pkgs)
+    # NOTE(chfanghr): I'd love to switch to callPackage pattern
+    stdenv
+    protoc-gen-tonic
+    protoc-gen-prost
+    protoc-gen-prost-crate
+    writeText
+    ;
 
   inherit (pkgs) lib;
 

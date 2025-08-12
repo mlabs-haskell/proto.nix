@@ -1,10 +1,12 @@
 # Repo wide settings
-{ lib, flake-parts-lib, ... }: {
+{ lib, flake-parts-lib, ... }:
+{
 
   options = {
 
-    perSystem = flake-parts-lib.mkPerSystemOption
-      ({ config, pkgs, ... }: {
+    perSystem = flake-parts-lib.mkPerSystemOption (
+      { config, pkgs, ... }:
+      {
         options.settings = {
 
           proto-lens-protoc = lib.mkOption {
@@ -23,7 +25,8 @@
           };
         };
 
-      });
+      }
+    );
 
   };
 

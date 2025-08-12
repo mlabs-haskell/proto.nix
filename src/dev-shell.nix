@@ -1,6 +1,6 @@
-_:
-{
-  perSystem = { pkgs, config, ... }:
+_: {
+  perSystem =
+    { pkgs, config, ... }:
     {
 
       devShells.dev-proto-nix = pkgs.mkShell {
