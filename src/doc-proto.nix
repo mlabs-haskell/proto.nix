@@ -1,8 +1,10 @@
-pkgs: { src
-      , protos ? [ ]
-      , extraSources ? [ ]
-      , docType ? "markdown"
-      }:
+pkgs:
+{
+  src,
+  protos ? [ ],
+  extraSources ? [ ],
+  docType ? "markdown",
+}:
 let
 
   ourProtobuf = pkgs.callPackage ./protobuf-with-extra-sources.nix {

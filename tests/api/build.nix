@@ -1,14 +1,16 @@
-_:
-{
-  perSystem = { config, proto-nix, ... }:
+_: {
+  perSystem =
+    { config, proto-nix, ... }:
     let
-      combined =
-        proto-nix.combinedProto {
-          src = ./.;
-          packageName = "addressbook-combined";
-          protos = [ "addressbook.proto" ];
-          langs = [ "haskell" "rust" ];
-        };
+      combined = proto-nix.combinedProto {
+        src = ./.;
+        packageName = "addressbook-combined";
+        protos = [ "addressbook.proto" ];
+        langs = [
+          "haskell"
+          "rust"
+        ];
+      };
 
       packages = {
         address-book-hs-pb = proto-nix.haskellProto {
