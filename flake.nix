@@ -2,7 +2,7 @@
   description = "proto.nix";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
 
