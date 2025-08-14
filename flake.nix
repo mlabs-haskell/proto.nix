@@ -13,9 +13,8 @@
       flake = false;
     };
 
-    # TODO(bladyjoker): Merge with upstream and use that.
     http2-grpc-native = {
-      url = "github:bladyjoker/http2-grpc-haskell";
+      url = "github:haskell-grpc-native/http2-grpc-haskell";
       flake = false;
     };
 

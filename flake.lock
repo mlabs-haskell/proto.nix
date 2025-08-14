@@ -553,15 +553,15 @@
     "http2-grpc-native": {
       "flake": false,
       "locked": {
-        "lastModified": 1657722007,
-        "narHash": "sha256-yvwCkJBvfM51sp8FfbJe4IGpJpmi2Aag9WamuHLYHBo=",
-        "owner": "bladyjoker",
+        "lastModified": 1713558097,
+        "narHash": "sha256-aDn9LsImlz2mSbieSsW+42e8Rsv8oEgSv6MKXsntArk=",
+        "owner": "haskell-grpc-native",
         "repo": "http2-grpc-haskell",
-        "rev": "182cbbd50e8968f696f9f5583827073da86cd872",
+        "rev": "7c19009e37fc305f73988b06b2cba9f31ae5478e",
         "type": "github"
       },
       "original": {
-        "owner": "bladyjoker",
+        "owner": "haskell-grpc-native",
         "repo": "http2-grpc-haskell",
         "type": "github"
       }
