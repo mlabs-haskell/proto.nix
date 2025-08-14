@@ -19,9 +19,7 @@
         config = {
 
           settings = {
-            # WARN(bladyjoker): Using recent versions fails because `ghc-source-gen` is marked as broken.
-            # Unfortunately, this means yet another GHC in your Nix store -.-
-            proto-lens-protoc = pkgs.haskell.packages.ghc810.proto-lens-protoc;
+            proto-lens-protoc = pkgs.haskellPackages.proto-lens-protoc;
           };
         };
 

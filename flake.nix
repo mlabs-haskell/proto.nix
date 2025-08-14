@@ -2,9 +2,7 @@
   description = "proto.nix";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-
-    haskell-nix.url = "github:input-output-hk/haskell.nix";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
 
@@ -13,9 +11,8 @@
       flake = false;
     };
 
-    # TODO(bladyjoker): Merge with upstream and use that.
     http2-grpc-native = {
-      url = "github:bladyjoker/http2-grpc-haskell";
+      url = "github:haskell-grpc-native/http2-grpc-haskell";
       flake = false;
     };
 
@@ -28,7 +25,6 @@
     inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        ./pkgs.nix
         ./settings.nix
         ./pre-commit.nix
         ./hercules-ci.nix
