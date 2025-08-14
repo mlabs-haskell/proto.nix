@@ -4,8 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
 
-    haskell-nix.url = "github:input-output-hk/haskell.nix";
-
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
 
     protobuf = {
@@ -27,7 +25,6 @@
     inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        ./pkgs.nix
         ./settings.nix
         ./pre-commit.nix
         ./hercules-ci.nix
