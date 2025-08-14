@@ -196,11 +196,11 @@
     "protobuf": {
       "flake": false,
       "locked": {
-        "lastModified": 1754974209,
-        "narHash": "sha256-s2+jNwG3xHgyKRBTW1Rz/Wffx++HMYJM5CfVDrJ+RVg=",
+        "lastModified": 1755131070,
+        "narHash": "sha256-fP7CyYzdaoxZdru5piaZhnv+Exl7nJ48F8yFKu8LMq0=",
         "owner": "protocolbuffers",
         "repo": "protobuf",
-        "rev": "9d8f0b5ede683ff0358c2d73ed2769160b101a0e",
+        "rev": "dafdede53504b6b2d0d2f076ad6e95c82e2f2cd7",
         "type": "github"
       },
       "original": {
